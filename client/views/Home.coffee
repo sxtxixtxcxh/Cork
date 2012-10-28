@@ -19,7 +19,6 @@ Template.home.events
     $newPost = $('.new-post')
     $newPost.attr('class', 'new-post post')
     type = Cork.Helpers.detectType($(e.currentTarget).val())
-    console.log e.currentTarget
     $newPost.addClass type
 Template.home.rendered = ->
   $newPost = $(this.find('.new-post'))
