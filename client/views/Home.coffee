@@ -1,6 +1,4 @@
 Template.home.helpers
-  showQuestionDetail: ->
-    return Session.get("showQuestionDetail")
   isObserver: ->
     Session.get('isObserver')
   loggedIn: ->

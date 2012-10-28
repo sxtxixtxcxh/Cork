@@ -12,19 +12,31 @@
 
 <template name="question_detail">
 <div class="post askew {{type}}" style="left: {{left}}px; top: {{top}}px;">
+  {{#constant}}
     {{#if isOwner}}
       <a class="delete-link icon-remove-sign"></a>
     {{/if}}
     {{#if isImage}}
-    <div class="post-image">
-      <img src="{{question}}">
-    </div>
+      <div class="post-image">
+        <img src="{{question}}">
+      </div>
     {{else}}
-    <div class="post-body">
+      {{#if isYoutube}}
+        <div class="post-youtube">
+            <object width="240" height="240" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+              <param name="movie" value="http://www.youtube.com/v/{{videoId}}&rel=0&hl=en&fs=1&"></param>
+              <param name="allowFullScreen" value="true"></param>
+              <param name="allowscriptaccess" value="always"></param>
+              <embed src="http://www.youtube.com/v/{{videoId}}&rel=0&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="{{width}}" height="{{height}}"></embed>
+            </object>
+        </div>
+      {{else}}
+        <div class="post-body">
 {{#markdown}}
 {{{question}}}
 {{/markdown}}
-    </div>
+        </div>
+      {{/if}}
     {{/if}}
     <div class="byline">
       <cite>
@@ -32,5 +44,9 @@
       </cite>
       <img class="avatar" src="{{avatar}}">
     </div>
-  </div>
+  {{/constant}}
+</div>
+</template>
+
+<template name="youtubeFlash">
 </template>

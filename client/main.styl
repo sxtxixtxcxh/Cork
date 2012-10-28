@@ -29,6 +29,9 @@ post-bg-color = #f9ee70
   min-width: 240px
   max-width: 240px
   max-height: 240px
+  &.youtube
+    object, embed
+      max-width: 220px
   &.dragging
     box-shadow: 0px 3px 7px rgba(0,0,0,0.3)
   &.image
@@ -40,12 +43,17 @@ post-bg-color = #f9ee70
   .post-body
     max-height: 210px
     overflow-y: auto
+    &:hover
+      cursor: default
   .delete-link
     display: none
     position: absolute
     top: -3px
     right: -3px
+    &:hover
+      cursor: pointer
   &:hover
+    cursor: move
     .delete-link
       display: block
   .byline

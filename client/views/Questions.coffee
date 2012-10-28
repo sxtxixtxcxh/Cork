@@ -8,6 +8,7 @@ Template.questions.helpers
   isObserver: ->
     Session.get('isObserver')
 
+
 Template.question_detail.rendered =->
   $modal = $(this.find('.post'))
   $modal._id = this.data._id
@@ -46,6 +47,10 @@ Template.question_detail.events
   'click .delete-link': (e)->
     e.preventDefault()
     Cork.Models.Questions.delete(this._id)
+  'mousedown .post-youtube': (e)->
+    e.stopPropagation()
+  'mousedown .post-body': (e)->
+    e.stopPropagation()
 
 Template.question_detail.helpers
   isObserver: ->
@@ -53,6 +58,9 @@ Template.question_detail.helpers
   isImage: ->
     if this.type?
       this.type is 'image'
+  isYoutube: ->
+    if this.type?
+      this.type is 'youtube'
   isOwner: ->
     this.userId is Meteor.userId()
   author: ->
