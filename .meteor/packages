@@ -11,8 +11,5 @@ coffeescript
 stylus
 accounts-password
 accounts-ui
-accounts-facebook
-accounts-twitter
-accounts-github
 showdown
 gravatar
