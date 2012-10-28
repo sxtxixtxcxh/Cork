@@ -1,0 +1,33 @@
+<template name="home">
+  <div class="container">
+    {{#if showQuestionDetail}}
+      {{> question_detail}}
+    {{/if}}
+    <div class="header row">
+      <div class="span2" style="float: right">
+        {{loginButtons align="right"}}
+      </div>
+    </div>
+    <div class="row">
+      {{> questions }}
+    </div>
+
+    {{#unless isObserver}}
+      <div class="row">
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label">Question?</label>
+            <div class="controls">
+              <textarea id="new-question" rows="5"></textarea>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <button class="btn" id="create-new-question">Create new question</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    {{/unless}}
+  </div>
+</template>
