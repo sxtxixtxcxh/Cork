@@ -48,9 +48,9 @@ Template.post_detail.events
     e.preventDefault()
     Cork.Models.Posts.delete(this._id)
   'mousedown .post-youtube': (e)->
-    e.stopPropagation()
+    e.stopPropagation() unless Modernizr.touch
   'mousedown .post-body': (e)->
-    e.stopPropagation()
+    e.stopPropagation() unless Modernizr.touch
 
 Template.post_detail.helpers
   isObserver: ->

@@ -12,9 +12,15 @@ Template.home.events
       body: $newPost.val()
       userId: Meteor.userId()
     $newPost.val('')
+    $('.new-post').attr('class', 'new-post post')
   'mousedown textarea': (e)->
     e.stopPropagation()
-
+  'keyup textarea': (e)->
+    $newPost = $('.new-post')
+    $newPost.attr('class', 'new-post post')
+    type = Cork.Helpers.detectType($(e.currentTarget).val())
+    console.log e.currentTarget
+    $newPost.addClass type
 Template.home.rendered = ->
   $newPost = $(this.find('.new-post'))
   $newPostStartX = $newPost.offset().left

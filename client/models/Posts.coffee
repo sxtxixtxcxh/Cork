@@ -1,32 +1,24 @@
 Cork.Models.Posts =
   create: (attributes)->
-    attributes = @setType(attributes)
+    attributes = @setAttributes(attributes)
     Posts.insert attributes
 
   delete: (id)->
     Posts.remove id
 
-  setType: (attributes)->
+  setAttributes: (attributes)->
     body = attributes.body
+    attributes.type = Cork.Helpers.detectType(body)
     if body.match(/^http/)
-      $link = $('<a>').attr('href', body)
-      url = $link[0]
-      path = url.pathname.toLowerCase()
-
-      image = path.match(/.jpg$|.jpeg$|.png$|.gif$/)
-      if image
-        attributes.type = 'image'
-
-      youtube = url.hostname.match(/.youtube.com/)
-      if youtube?.length > 0 and body is url.href
+      if attributes.type is 'youtube'
+        $link = $('<a>').attr('href', body)
+        url = $link[0]
         params = url.search.split('&')
         queryObject = {}
         _.each params, (item, index)->
           keyValuePair = item.split('=')
           queryObject[keyValuePair[0].replace(/^\?/, '')] = keyValuePair[1]
-
         attributes.type = 'youtube'
-
         attributes.videoId = queryObject.v
 
     attributes
