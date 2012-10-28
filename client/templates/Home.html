@@ -7,19 +7,19 @@
     </div>
 
     <div class="row">
-      {{> questions }}
+      {{> posts }}
     </div>
     {{#if loggedIn}}
       {{#unless isObserver}}
         <div class="post new-post">
           <div class="control-group">
             <div class="controls">
-              <textarea id="new-question" rows="5"></textarea>
+              <textarea id="new-post" rows="5"></textarea>
             </div>
           </div>
           <div class="control-group">
             <div class="controls">
-              <button class="btn" id="create-new-question">Post!</button>
+              <button class="btn" id="create-new-post">Post!</button>
             </div>
           </div>
         </div>

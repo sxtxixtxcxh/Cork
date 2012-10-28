@@ -1,15 +1,15 @@
-Meteor.subscribe 'questions'
+Meteor.subscribe 'posts'
 
-Cork.questions = Questions.find()
+Cork.posts = Posts.find()
 
-Template.questions.helpers
-  questions: ->
-    Cork.questions
+Template.posts.helpers
+  posts: ->
+    Cork.posts
   isObserver: ->
     Session.get('isObserver')
 
 
-Template.question_detail.rendered =->
+Template.post_detail.rendered =->
   $modal = $(this.find('.post'))
   $modal._id = this.data._id
   $modalStartX = $modal.offset().left
@@ -26,7 +26,7 @@ Template.question_detail.rendered =->
   $modal.on 'moveend', (e)->
     $modalStartX = $modal.offset().left
     $modalStartY = $modal.offset().top
-    Questions.update $modal._id,
+    Posts.update $modal._id,
       $set:
         position:
           x: $modalStartX
@@ -38,21 +38,21 @@ Template.question_detail.rendered =->
       left: $modalStartX + e.distX
       top: $modalStartY + e.distY
 
-Template.question_detail.destroyed =->
+Template.post_detail.destroyed =->
   jQuery('.modal-header').off 'movestart'
   jQuery('.modal-header').off 'movesend'
   jQuery('.modal-header').off 'move'
 
-Template.question_detail.events
+Template.post_detail.events
   'click .delete-link': (e)->
     e.preventDefault()
-    Cork.Models.Questions.delete(this._id)
+    Cork.Models.Posts.delete(this._id)
   'mousedown .post-youtube': (e)->
     e.stopPropagation()
   'mousedown .post-body': (e)->
     e.stopPropagation()
 
-Template.question_detail.helpers
+Template.post_detail.helpers
   isObserver: ->
     Session.get('isObserver')
   isImage: ->

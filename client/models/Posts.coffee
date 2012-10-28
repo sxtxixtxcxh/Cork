@@ -1,13 +1,13 @@
-Cork.Models.Questions =
+Cork.Models.Posts =
   create: (attributes)->
     attributes = @setType(attributes)
-    Questions.insert attributes
+    Posts.insert attributes
 
   delete: (id)->
-    Questions.remove id
+    Posts.remove id
 
   setType: (attributes)->
-    body = attributes.question
+    body = attributes.body
     if body.match(/^http/)
       $link = $('<a>').attr('href', body)
       url = $link[0]
@@ -18,7 +18,7 @@ Cork.Models.Questions =
         attributes.type = 'image'
 
       youtube = url.hostname.match(/.youtube.com/)
-      if youtube.length > 0 and body is url.href
+      if youtube?.length > 0 and body is url.href
         params = url.search.split('&')
         queryObject = {}
         _.each params, (item, index)->

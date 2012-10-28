@@ -1,16 +1,10 @@
-<template name="questions">
-  {{#each questions}}
-    {{> question_detail}}
-  {{else}}
-    No Questions Yet
+<template name="posts">
+  {{#each posts}}
+    {{> post_detail}}
   {{/each}}
 </template>
 
-<template name="question">
-  <a href="#" id="{{_id}}">{{question}}</a>
-</template>
-
-<template name="question_detail">
+<template name="post_detail">
 <div class="post askew {{type}}" style="left: {{left}}px; top: {{top}}px;">
   {{#if isOwner}}
     <a class="delete-link icon-remove-sign"></a>
@@ -18,7 +12,7 @@
   {{#constant}}
     {{#if isImage}}
       <div class="post-image">
-        <img src="{{question}}">
+        <img src="{{body}}">
       </div>
     {{else}}
       {{#if isYoutube}}
@@ -32,9 +26,9 @@
         </div>
       {{else}}
         <div class="post-body">
-  {{#markdown}}
-  {{{question}}}
-  {{/markdown}}
+{{#markdown}}
+{{{body}}}
+{{/markdown}}
         </div>
       {{/if}}
     {{/if}}

@@ -1,5 +1,5 @@
-Meteor.publish 'questions', ->
-  collection = Questions.find()
+Meteor.publish 'posts', ->
+  collection = Posts.find()
   handle = collection.observe
     updated: (doc)->
       console.log doc

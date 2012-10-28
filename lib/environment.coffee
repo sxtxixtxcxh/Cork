@@ -1,4 +1,4 @@
-Questions = new Meteor.Collection('questions')
+Posts = new Meteor.Collection('posts')
 
 Cork =
   Views: {}
