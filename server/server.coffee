@@ -8,3 +8,4 @@ Meteor.publish 'questions', ->
 
 Meteor.publish 'users', ->
   Meteor.users.find()
+

@@ -15,6 +15,7 @@ Template.question_detail.rendered =->
   $modalStartY = $modal.offset().top
   Cork.Helpers.addExternalFavicon($modal)
   $modal.on 'movestart', (e)->
+    $modal.addClass 'dragging'
     $modal.css
       position: 'absolute'
       margin: 0
@@ -24,14 +25,17 @@ Template.question_detail.rendered =->
   $modal.on 'moveend', (e)->
     $modalStartX = $modal.offset().left
     $modalStartY = $modal.offset().top
-
-  $modal.on 'move', (e)->
     Questions.update $modal._id,
       $set:
         position:
-          x: $modalStartX + e.distX
-          y: $modalStartY + e.distY
+          x: $modalStartX
+          y: $modalStartY
           z: 10
+
+  $modal.on 'move', (e)->
+    $modal.css
+      left: $modalStartX + e.distX
+      top: $modalStartY + e.distY
 
 Template.question_detail.destroyed =->
   jQuery('.modal-header').off 'movestart'
@@ -39,17 +43,22 @@ Template.question_detail.destroyed =->
   jQuery('.modal-header').off 'move'
 
 Template.question_detail.events
-  'click .cancel': (e)->
+  'click .delete-link': (e)->
     e.preventDefault()
-    Session.set('showQuestionDetail', false)
+    Cork.Models.Questions.delete(this._id)
 
 Template.question_detail.helpers
   isObserver: ->
     Session.get('isObserver')
+  isImage: ->
+    if this.type?
+      this.type is 'image'
+  isOwner: ->
+    this.userId is Meteor.userId()
   author: ->
     if this.userId
       user = Meteor.users.findOne this.userId
-      user.emails[0].address
+      user?.emails[0].address
   avatar: ->
     if this.userId
       user = Meteor.users.findOne this.userId

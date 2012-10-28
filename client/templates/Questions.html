@@ -11,12 +11,21 @@
 </template>
 
 <template name="question_detail">
-  <div class="post askew" style="left: {{left}}px; top: {{top}}px;">
+<div class="post askew {{type}}" style="left: {{left}}px; top: {{top}}px;">
+    {{#if isOwner}}
+      <a class="delete-link icon-remove-sign"></a>
+    {{/if}}
+    {{#if isImage}}
+    <div class="post-image">
+      <img src="{{question}}">
+    </div>
+    {{else}}
     <div class="post-body">
 {{#markdown}}
 {{{question}}}
 {{/markdown}}
     </div>
+    {{/if}}
     <div class="byline">
       <cite>
         {{author}}

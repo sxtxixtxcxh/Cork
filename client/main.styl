@@ -1,5 +1,5 @@
 @import 'nib'
-
+@import '/stylesheets/font-awesome.css'
 *
   box-sizing: border-box
 
@@ -14,10 +14,11 @@ body
 p
   margin-top: 0
 
+post-bg-color = #efefef
+post-bg-color = #f9ee70
 .post
   padding: 10px 10px 20px 10px
-  //background: #f9ee70 url('/images/paper.png') center center
-  background: #efefef url('/images/paper.png') center center
+  background: post-bg-color url('/images/paper.png') center center
   display: inline-block
   border-radius: 3px
   position: absolute
@@ -28,13 +29,25 @@ p
   min-width: 240px
   max-width: 240px
   max-height: 240px
+  &.dragging
+    box-shadow: 0px 3px 7px rgba(0,0,0,0.3)
+  &.image
+    background: #fff url('/images/paper.png') center center
+    padding-bottom: 40px
+    max-height: none
+    img
+      width: 100%
   .post-body
     max-height: 210px
     overflow-y: auto
-  textarea
-    background: none
-    border-color: rgba(0,0,0,0.1)
-    width: 220px
+  .delete-link
+    display: none
+    position: absolute
+    top: -3px
+    right: -3px
+  &:hover
+    .delete-link
+      display: block
   .byline
     position: absolute
     bottom: -10px
@@ -72,5 +85,9 @@ p
 .new-post
   bottom: 10px
   left: 10px
+  textarea
+    background: none
+    border-color: rgba(0,0,0,0.1)
+    width: 220px
 
 

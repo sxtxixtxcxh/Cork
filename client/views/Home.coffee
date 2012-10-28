@@ -10,7 +10,7 @@ Template.home.events
   'click #create-new-question': (e)->
     e.preventDefault()
     $newQuestion = $('#new-question')
-    Questions.insert
+    Cork.Models.Questions.create
       question: $newQuestion.val()
       userId: Meteor.userId()
     $newQuestion.val('')
