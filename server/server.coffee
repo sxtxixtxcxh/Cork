@@ -5,3 +5,6 @@ Meteor.publish 'questions', ->
       console.log doc
       self.flush()
   collection
+
+Meteor.publish 'users', ->
+  Meteor.users.find()

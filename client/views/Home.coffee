@@ -1,8 +1,10 @@
 Template.home.helpers
   showQuestionDetail: ->
     return Session.get("showQuestionDetail")
-  isObserver :->
+  isObserver: ->
     Session.get('isObserver')
+  loggedIn: ->
+    Meteor.user
 
 Template.home.events
   'click #create-new-question': (e)->
@@ -10,4 +12,5 @@ Template.home.events
     $newQuestion = $('#new-question')
     Questions.insert
       question: $newQuestion.val()
+      userId: Meteor.userId()
     $newQuestion.val('')

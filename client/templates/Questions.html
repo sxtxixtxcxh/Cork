@@ -1,11 +1,9 @@
 <template name="questions">
-  <ul>
-    {{#each questions}}
-      <li>{{> question}}</li>
-    {{else}}
-      No Questions Yet
-    {{/each}}
-  </ul>
+  {{#each questions}}
+    {{> question_detail}}
+  {{else}}
+    No Questions Yet
+  {{/each}}
 </template>
 
 <template name="question">
@@ -13,50 +11,17 @@
 </template>
 
 <template name="question_detail">
-  <div class="mask"> </div>
-  <div class="modal" style="position: absolute; left: {{left}}px; top: {{top}}px; margin: 0">
-    <div class="modal-header">
-      <button type="button" class="close cancel">&times;</button>
-      <h3>{{question.question}}</h3>
+  <div class="post askew" style="left: {{left}}px; top: {{top}}px;">
+    <div class="post-body">
+{{#markdown}}
+{{{question}}}
+{{/markdown}}
     </div>
-
-    <div class="modal-body">
-      <ul>
-        {{#each question.answers}}
-        <li>
-          {{> answer }}
-        </li>
-        {{else}}
-          <li>No answers Yet</li>
-        {{/each}}
-      </ul>
-      {{#unless isObserver}}
-        <div class="row">
-          <form class="form-horizontal">
-            <div class="control-group">
-              <label class="control-label">Answer:</label>
-              <div class="controls">
-                <textarea id="new-answer" rows="5"></textarea>
-                <span class="help-block">
-                  Markdown Friendly
-                </span>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <button class="btn" id="create-new-answer">Send Answer</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      {{/unless}}
+    <div class="byline">
+      <cite>
+        {{author}}
+      </cite>
+      <img class="avatar" src="{{avatar}}">
     </div>
   </div>
-</template>
-
-<template name="answer">
-{{#markdown}}
-{{{answer}}}
-{{/markdown}}
-<cite>by {{author}}</cite>
 </template>
