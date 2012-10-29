@@ -6,24 +6,26 @@
       </div>
     </div>
 
-    <div class="row">
-      {{> posts }}
+    <div id="viewport">
+      <div id="center">
+        {{> posts }}
+      </div>
+      {{#if loggedIn}}
+        {{#unless isObserver}}
+          <div class="post new-post">
+            <div class="control-group">
+              <div class="controls">
+                <textarea id="new-post" rows="5"></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <button class="btn" id="create-new-post">Post!</button>
+              </div>
+            </div>
+          </div>
+        {{/unless}}
+      {{/if}}
     </div>
-    {{#if loggedIn}}
-      {{#unless isObserver}}
-        <div class="post new-post">
-          <div class="control-group">
-            <div class="controls">
-              <textarea id="new-post" rows="5"></textarea>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <button class="btn" id="create-new-post">Post!</button>
-            </div>
-          </div>
-        </div>
-      {{/unless}}
-    {{/if}}
   </div>
 </template>

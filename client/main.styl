@@ -5,17 +5,32 @@
 
 html, body
   height: 100%
-
+  overflow: hidden
 body
-  background: url('/images/background.png') center center
+  background: url('/images/background.png') 0 0
   font-family: Helvetica-Neue, Arial
   font-size: 14px
+
 
 p
   margin-top: 0
 
+#viewport
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+
+#center
+  position: absolute
+  width: 1px
+  height: 1px
+  top: 50%
+  left: 50%
 post-bg-color = #efefef
 post-bg-color = #f9ee70
+
 .post
   padding: 10px 10px 20px 10px
   background: post-bg-color url('/images/paper.png') center center
@@ -84,19 +99,19 @@ post-bg-color = #f9ee70
       box-shadow: 0 2px 2px rgba(0,0,0,0.3)
 
 .askew:nth-child(2n+1)
-  transform: rotate(-2deg)
+  transform: rotate(-1deg)
 
 .askew:nth-child(3n+2)
-  transform: rotate(1deg)
+  transform: rotate(2deg)
 
 .askew:nth-child(5n+3)
   transform: rotate(-3deg)
 
 .askew:nth-child(7n+5)
-  transform: rotate(6deg)
+  transform: rotate(4deg)
 
 .askew:nth-child(11n+7)
-  transform: rotate(4deg)
+  transform: rotate(5deg)
 
 .new-post
   bottom: 10px

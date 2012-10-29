@@ -20,6 +20,7 @@ Template.home.events
     $newPost.attr('class', 'new-post post')
     type = Cork.Helpers.detectType($(e.currentTarget).val())
     $newPost.addClass type
+
 Template.home.rendered = ->
   $newPost = $(this.find('.new-post'))
   $newPostStartX = $newPost.offset().left
@@ -35,3 +36,26 @@ Template.home.rendered = ->
     $newPost.css
       left: $newPostStartX + e.distX
       top: $newPostStartY + e.distY
+
+  $center = $('#center')
+  $body = $('body')
+  $bgX = 0
+  $bgY = 0
+  $centerStartX = $center.position().left
+  $centerStartY = $center.position().top
+
+  $viewport = $('#viewport')
+
+  $viewport.on 'move', (e)->
+    $center.css
+      left: $centerStartX + e.distX
+      top: $centerStartY + e.distY
+    $body.css
+      backgroundPositionX: $bgX + e.distX
+      backgroundPositionY: $bgY + e.distY
+
+  $viewport.on 'moveend', (e)->
+    $centerStartX = $center.position().left
+    $centerStartY = $center.position().top
+    $bgX = parseInt $body.css('backgroundPositionX')
+    $bgY = parseInt $body.css('backgroundPositionY')

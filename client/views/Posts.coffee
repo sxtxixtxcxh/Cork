@@ -10,33 +10,36 @@ Template.posts.helpers
 
 
 Template.post_detail.rendered =->
-  $modal = $(this.find('.post'))
-  $modal._id = this.data._id
-  $modalStartX = $modal.offset().left
-  $modalStartY = $modal.offset().top
-  Cork.Helpers.addExternalFavicon($modal)
-  $modal.on 'movestart', (e)->
-    $modal.addClass 'dragging'
-    $modal.css
+  $post = $(this.find('.post'))
+  $post._id = this.data._id
+  $postStartX = $post.position().left
+  $postStartY = $post.position().top
+  Cork.Helpers.addExternalFavicon($post)
+  $post.on 'movestart', (e)->
+    e.stopPropagation()
+    $post.addClass 'dragging'
+    $post.css
       position: 'absolute'
       margin: 0
-      left: $modalStartX
-      top: $modalStartY
+      left: $postStartX
+      top: $postStartY
 
-  $modal.on 'moveend', (e)->
-    $modalStartX = $modal.offset().left
-    $modalStartY = $modal.offset().top
-    Posts.update $modal._id,
+  $post.on 'moveend', (e)->
+    e.stopPropagation()
+    $postStartX = $post.position().left
+    $postStartY = $post.position().top
+    Posts.update $post._id,
       $set:
         position:
-          x: $modalStartX
-          y: $modalStartY
+          x: $postStartX
+          y: $postStartY
           z: 10
 
-  $modal.on 'move', (e)->
-    $modal.css
-      left: $modalStartX + e.distX
-      top: $modalStartY + e.distY
+  $post.on 'move', (e)->
+    e.stopPropagation()
+    $post.css
+      left: $postStartX + e.distX
+      top: $postStartY + e.distY
 
 Template.post_detail.destroyed =->
   jQuery('.modal-header').off 'movestart'
