@@ -20,8 +20,32 @@ header
   top: 0
   width: 100%
   z-index: 100
-
-
+  background: rgba(0,0,0,0.1)
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+  h1
+    margin: 0
+    padding: 0
+    font-size: 16px
+    line-height: 16px
+    float: left
+    color: #fff
+    opacity: 0.6
+  h2
+    margin: 0 0 0 10px
+    font-size: 10px
+    float: left
+    line-height: 24px
+    margin-top: -2px
+    color: #fff
+    opacity: 0.6
+    .prototype
+      opacity: 0.6
+      text-indent: -9999px
+      display: inline-block
+      background: url('/images/prototype_logo_tiny.png') no-repeat
+      width: 35px
+      height: 24px
+      margin-top: -2px
 p
   margin-top: 0
 
@@ -90,10 +114,13 @@ post-bg-color = #f9ee70
     cursor: move
     .delete-link
       display: block
+    .byline
+      display: block
   .byline
     bottom: -10px
     position: absolute
     right: -10px
+    display: none
     cite
       display: inline-block
       float: left
