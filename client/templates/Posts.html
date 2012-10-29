@@ -6,7 +6,7 @@
 
 <template name="post_detail">
 <div class="post askew {{type}}" style="left: {{left}}px; top: {{top}}px;">
-  {{#if isOwner}}
+  {{#if canDelete}}
     <a class="delete-link icon-remove-sign"></a>
   {{/if}}
   {{#constant}}

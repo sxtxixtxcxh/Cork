@@ -64,8 +64,8 @@ Template.post_detail.helpers
   isYoutube: ->
     if this.type?
       this.type is 'youtube'
-  isOwner: ->
-    this.userId is Meteor.userId()
+  canDelete: ->
+    return this.userId == Meteor.userId() || Meteor.user().admin
   author: ->
     if this.userId
       user = Meteor.users.findOne this.userId
