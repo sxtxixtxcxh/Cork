@@ -5,45 +5,56 @@
 
 html, body
   height: 100%
+  padding: 0
+  margin: 0
   overflow: hidden
+
 body
   background: url('/images/background.png') 0 0
   font-family: Helvetica-Neue, Arial
   font-size: 14px
+
+header
+  padding: 20px
+  position: absolute
+  top: 0
+  width: 100%
+  z-index: 100
 
 
 p
   margin-top: 0
 
 #viewport
-  position: absolute
-  top: 0
-  left: 0
   bottom: 0
+  left: 0
+  position: absolute
   right: 0
+  top: 0
 
 #center
-  position: absolute
-  width: 1px
   height: 1px
-  top: 50%
   left: 50%
+  position: absolute
+  top: 50%
+  width: 1px
+
 post-bg-color = #efefef
 post-bg-color = #f9ee70
 
 .post
-  padding: 10px 10px 20px 10px
   background: post-bg-color url('/images/paper.png') center center
-  display: inline-block
   border-radius: 3px
-  position: absolute
   box-shadow: 0px 1px 5px rgba(0,0,0,0.3)
-  min-width: 240px
-  min-height: 60px
-  width: auto
-  min-width: 240px
-  max-width: 240px
+  display: inline-block
   max-height: 240px
+  max-width: 240px
+  min-height: 60px
+  min-width: 240px
+  min-width: 240px
+  padding: 10px 10px 20px 10px
+  position: absolute
+  width: auto
   &.youtube
     cite, .delete-link, textarea
       color: #eee
@@ -59,8 +70,8 @@ post-bg-color = #f9ee70
     box-shadow: 0px 3px 7px rgba(0,0,0,0.3)
   &.image
     background: #fff url('/images/paper.png') center center
-    padding-bottom: 40px
     max-height: none
+    padding-bottom: 40px
     img
       width: 100%
   .post-body
@@ -71,8 +82,8 @@ post-bg-color = #f9ee70
   .delete-link
     display: none
     position: absolute
-    top: -3px
     right: -3px
+    top: -3px
     &:hover
       cursor: pointer
   &:hover
@@ -80,23 +91,23 @@ post-bg-color = #f9ee70
     .delete-link
       display: block
   .byline
-    position: absolute
     bottom: -10px
+    position: absolute
     right: -10px
     cite
-      padding-bottom: 20px
-      line-height: 25px
       display: inline-block
       float: left
-      margin-right: 10px
-      height: 30px
       font-size: 10px
+      height: 30px
+      line-height: 25px
+      margin-right: 10px
+      padding-bottom: 20px
     img
-      width: 30px
-      float: right
       border-radius: 3px
-      vertical-align: center
       box-shadow: 0 2px 2px rgba(0,0,0,0.3)
+      float: right
+      vertical-align: center
+      width: 30px
 
 .askew:nth-child(2n+1)
   transform: rotate(-1deg)
@@ -122,5 +133,3 @@ post-bg-color = #f9ee70
     background: none
     border-color: rgba(0,0,0,0.1)
     width: 220px
-
-

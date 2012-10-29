@@ -23,19 +23,20 @@ Template.home.events
 
 Template.home.rendered = ->
   $newPost = $(this.find('.new-post'))
-  $newPostStartX = $newPost.offset().left
-  $newPostStartY = $newPost.offset().top
-  $newPost.on 'movestart', (e)->
-    $newPost.css
-      bottom: 'auto'
-      top: $newPostStartY
-  $newPost.on 'moveend', (e)->
+  if $newPost.length > 0
     $newPostStartX = $newPost.offset().left
     $newPostStartY = $newPost.offset().top
-  $newPost.on 'move', (e)->
-    $newPost.css
-      left: $newPostStartX + e.distX
-      top: $newPostStartY + e.distY
+    $newPost.on 'movestart', (e)->
+      $newPost.css
+        bottom: 'auto'
+        top: $newPostStartY
+    $newPost.on 'moveend', (e)->
+      $newPostStartX = $newPost.offset().left
+      $newPostStartY = $newPost.offset().top
+    $newPost.on 'move', (e)->
+      $newPost.css
+        left: $newPostStartX + e.distX
+        top: $newPostStartY + e.distY
 
   $center = $('#center')
   $body = $('body')
@@ -45,8 +46,10 @@ Template.home.rendered = ->
   $centerStartY = $center.position().top
 
   $viewport = $('#viewport')
-
+  $viewport.on 'movestart', (e)->
+    return if e.finger > 1
   $viewport.on 'move', (e)->
+    return if e.finger > 1
     $center.css
       left: $centerStartX + e.distX
       top: $centerStartY + e.distY
