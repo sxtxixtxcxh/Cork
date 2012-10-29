@@ -11,10 +11,12 @@ Template.posts.helpers
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
+  Cork.Helpers.addExternalFavicon($post)
+
+  return unless Meteor.user()
   $post._id = this.data._id
   $postStartX = $post.position().left
   $postStartY = $post.position().top
-  Cork.Helpers.addExternalFavicon($post)
   $post.on 'movestart', (e)->
     e.stopPropagation()
     $post.addClass 'dragging'
