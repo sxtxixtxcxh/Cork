@@ -135,6 +135,19 @@ post-bg-color = #f9ee70
       vertical-align: center
       width: 30px
 
+.new-post
+  bottom: 10px
+  left: 10px
+  &.image
+    padding-bottom: 20px
+  textarea
+    background: none
+    border-color: rgba(0,0,0,0.1)
+    width: 220px
+
+.transition
+  transition: all .3s ease-in-out
+
 .askew:nth-child(2n+1)
   transform: rotate(-1deg)
 
@@ -150,12 +163,3 @@ post-bg-color = #f9ee70
 .askew:nth-child(11n+7)
   transform: rotate(5deg)
 
-.new-post
-  bottom: 10px
-  left: 10px
-  &.image
-    padding-bottom: 20px
-  textarea
-    background: none
-    border-color: rgba(0,0,0,0.1)
-    width: 220px

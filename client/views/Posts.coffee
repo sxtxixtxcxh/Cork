@@ -2,51 +2,58 @@ Meteor.subscribe 'posts'
 
 Cork.posts = Posts.find()
 
+Cork.posts.observe
+  changed: (newDoc, i, oldDoc)->
+    positionChanged = _.any newDoc.position, (offset, key)->
+      changed = offset != oldDoc.position[key]
+    return unless positionChanged
+    $post = $("#post-#{newDoc._id}")
+    $post.addClass('transition')
+    $post.css(
+      left: newDoc.position.x
+      top: newDoc.position.y
+    )
+    setTimeout ->
+      $post.removeClass('transition')
+    , 300
+
 Template.posts.helpers
   posts: ->
     Cork.posts
   isObserver: ->
     Session.get('isObserver')
 
-
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
   Cork.Helpers.addExternalFavicon($post)
+  id = this.data._id
 
   return unless Meteor.user()
-  $post._id = this.data._id
-  $postStartX = $post.position().left
-  $postStartY = $post.position().top
-  $post.on 'movestart', (e)->
-    e.stopPropagation()
-    $post.addClass 'dragging'
-    $post.css
-      position: 'absolute'
-      margin: 0
-      left: $postStartX
-      top: $postStartY
+  return if this.moveBound
+  posX = this.data.position.x
+  posY = this.data.position.y
 
-  $post.on 'moveend', (e)->
-    e.stopPropagation()
-    $postStartX = $post.position().left
-    $postStartY = $post.position().top
-    Posts.update $post._id,
-      $set:
-        position:
-          x: $postStartX
-          y: $postStartY
-          z: 10
-
-  $post.on 'move', (e)->
-    e.stopPropagation()
-    $post.css
-      left: $postStartX + e.distX
-      top: $postStartY + e.distY
-
-Template.post_detail.destroyed =->
-  jQuery('.modal-header').off 'movestart'
-  jQuery('.modal-header').off 'movesend'
-  jQuery('.modal-header').off 'move'
+  $post.on
+    'movestart': (e)->
+      e.stopPropagation()
+      $post.addClass 'dragging'
+    'moveend': (e)->
+      e.stopPropagation()
+      $post.removeClass 'dragging'
+      posX = $post.position().left
+      posY = $post.position().top
+      Posts.update id,
+        $set:
+          position:
+            x: posX
+            y: posY
+            z: 10
+    'move': (e)->
+      e.stopPropagation()
+      $post.css
+        left: posX + e.distX
+        top: posY + e.distY
+  this.moveBound = true
 
 Template.post_detail.events
   'click .delete-link': (e)->
