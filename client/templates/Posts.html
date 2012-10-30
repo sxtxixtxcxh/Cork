@@ -7,8 +7,8 @@
 </template>
 
 <template name="post_detail">
-  {{#constant}}
-    <div id="post-{{_id}}" class="post askew {{type}}" style="left: {{left}}px; top: {{top}}px;">
+  <div id="post-{{_id}}" class="post askew transition {{type}}" style="left: {{left}}px; top: {{top}}px;">
+    {{#constant}}
       {{#if canDelete}}
         <a class="delete-link icon-remove-sign"></a>
       {{/if}}
@@ -40,6 +40,6 @@
         </cite>
         <img class="avatar" src="{{avatar}}">
       </div>
-    </div>
-  {{/constant}}
+    {{/constant}}
+  </div>
 </template>

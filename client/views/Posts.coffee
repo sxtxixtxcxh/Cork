@@ -5,21 +5,6 @@ Meteor.autosubscribe ->
 Cork.posts = Posts.find()
 Cork.boards = Boards.find()
 
-Cork.posts.observe
-  changed: (newDoc, i, oldDoc)->
-    positionChanged = _.any newDoc.position, (offset, key)->
-      changed = offset != oldDoc.position[key]
-    return unless positionChanged
-    $post = $("#post-#{newDoc._id}")
-    $post.addClass('transition')
-    $post.css(
-      left: newDoc.position.x
-      top: newDoc.position.y
-    )
-    setTimeout ->
-      $post.removeClass('transition')
-    , 300
-
 Template.posts.helpers
   posts: ->
     Cork.posts
@@ -28,6 +13,7 @@ Template.posts.helpers
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
+  $post.css('opacity', 1)
   Cork.Helpers.addExternalFavicon($post)
   id = this.data._id
 
@@ -39,10 +25,11 @@ Template.post_detail.rendered =->
   $post.on
     'movestart': (e)->
       e.stopPropagation()
-      $post.addClass 'dragging'
+      $post.addClass('dragging')
+
     'moveend': (e)->
       e.stopPropagation()
-      $post.removeClass 'dragging'
+      $post.removeClass('dragging')
       posX = $post.position().left
       posY = $post.position().top
       Posts.update id,
