@@ -21,6 +21,13 @@ Cork.Helpers =
 
     return 'post'
 
+Cork.Helpers.resetCenter =->
+  $('#center').css
+    left: '50%'
+    top: '50%'
+  $('body').css
+    backgroundPositionX: 0
+    backgroundPositionY: 0
 
 class CorkRouter extends Backbone.Router
   routes:
@@ -28,10 +35,12 @@ class CorkRouter extends Backbone.Router
     ":board": "board"
 
   main: () ->
-    Session.set('boardSlug', null)
+    @board()
 
   board: (boardSlug)->
     Session.set('boardSlug', boardSlug)
+    Cork.Helpers.resetCenter()
+
 
 Router = new CorkRouter()
 
