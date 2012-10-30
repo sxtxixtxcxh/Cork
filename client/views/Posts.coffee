@@ -1,6 +1,9 @@
-Meteor.subscribe 'posts'
+Meteor.autosubscribe ->
+  Meteor.subscribe "posts", Session.get('boardSlug')
+  Meteor.subscribe "boards", Meteor.userId() if Meteor.user()
 
 Cork.posts = Posts.find()
+Cork.boards = Boards.find()
 
 Cork.posts.observe
   changed: (newDoc, i, oldDoc)->

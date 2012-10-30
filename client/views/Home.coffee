@@ -3,6 +3,12 @@ Template.home.helpers
     Session.get('isObserver')
   loggedIn: ->
     Meteor.user
+  anyBoards: ->
+    Cork.boards
+  boards: ->
+    Cork.boards
+  boardSelectedClass: ->
+    '-empty' unless Session.equals("boardSlug", this.slug)
 
 Template.home.events
   'click #create-new-post': (e)->

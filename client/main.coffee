@@ -20,3 +20,24 @@ Cork.Helpers =
       return 'youtube'
 
     return 'post'
+
+
+class CorkRouter extends Backbone.Router
+  routes:
+    "": "main"
+    ":board": "board"
+
+  main: () ->
+    Session.set('boardSlug', null)
+
+  board: (boardSlug)->
+    Session.set('boardSlug', boardSlug)
+
+Router = new CorkRouter()
+
+Meteor.startup ->
+  $(document).on 'click', 'header a', (e)->
+    e.preventDefault()
+    Router.navigate $(this).attr('href'), true
+
+  Backbone.history.start pushState: true

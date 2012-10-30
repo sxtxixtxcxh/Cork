@@ -1,6 +1,7 @@
 Cork.Models.Posts =
   create: (attributes)->
-    attributes = @setAttributes(attributes)
+    attributes = @processAttributes(attributes)
+    attributes.boardSlug = Session.get('boardSlug')
     Posts.insert attributes
 
   delete: (id)->
@@ -18,7 +19,6 @@ Cork.Models.Posts =
     attributes.position.y ||= 0
     attributes.position
 
-
   processAttributes: (attributes)->
     attributes.position = @setPosition(attributes)
 
@@ -27,8 +27,7 @@ Cork.Models.Posts =
       attributes.type = Cork.Helpers.detectType(body)
       if body.match(/^http/)
         if attributes.type is 'youtube'
-          $link = $('<a>').att
-          r('href', body)
+          $link = $('<a>').attr('href', body)
           url = $link[0]
           params = url.search.split('&')
           queryObject = {}
