@@ -65,6 +65,11 @@ Template.post_detail.helpers
   isYoutube: ->
     if this.type?
       this.type is 'youtube'
+  imageUrl: ->
+    this.mediaUrl || this.body
+  imageBody: ->
+    mediaUrlRegex = new RegExp("^"+this.mediaUrl,"g")
+    this.body.replace(mediaUrlRegex, '')
   canDelete: ->
     return Meteor.user()
   author: ->

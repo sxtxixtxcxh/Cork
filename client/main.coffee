@@ -8,26 +8,39 @@ Cork.Helpers =
       $(this).css
         background: "url(http://www.google.com/s2/u/0/favicons?domain=#{@hostname}) left center no-repeat",
         "padding-left": "20px"
-  detectType: (content)->
-    $link = $('<a>').attr('href', content)
-    url = $link[0]
-    path = url.pathname.toLowerCase()
-    image = path.match(/.jpg$|.jpeg$|.png$|.gif$/)
-    if image?.length > 0 and content is url.href
-      return 'image'
-    youtube = url.hostname.match(/.youtube.com/)
-    if youtube?.length > 0 and content is url.href
-      return 'youtube'
 
-    return 'post'
+  detectMedia: (content)->
+    lines = content.split("\n")
+    tokens = _.flatten _.map lines, (item)->
+      item.split(' ')
+    type = undefined
+    _.find tokens, (item, i)->
+      url = $('<a>').attr('href', item)[0]
+      path = url.pathname.toLowerCase()
+      if path.match(/.jpg$|.jpeg$|.png$|.gif$/)
+        type = {type: 'image', mediaUrl: url.href}
+        return true
+      if url.hostname.match(/youtube.com/)
+        type = {type: 'youtube', mediaUrl: url.href}
+        return true
+    type ||= {type: 'post', mediaUrl: undefined}
+    return type
 
-Cork.Helpers.resetCenter =->
-  $('#center').css
-    left: '50%'
-    top: '50%'
-  $('body').css
-    backgroundPositionX: 0
-    backgroundPositionY: 0
+  queryStringToObject: (queryString)->
+    params = queryString.split('&')
+    queryObject = {}
+    _.each params, (item, index)->
+      keyValuePair = item.split('=')
+      queryObject[keyValuePair[0].replace(/^\?/, '')] = keyValuePair[1]
+    queryObject
+
+  resetCenter: ->
+    $('#center').css
+      left: '50%'
+      top: '50%'
+    $('body').css
+      backgroundPositionX: 0
+      backgroundPositionY: 0
 
 class CorkRouter extends Backbone.Router
   routes:

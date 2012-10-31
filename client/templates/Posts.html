@@ -14,7 +14,12 @@
       {{/if}}
       {{#if isImage}}
         <div class="post-image">
-          <a href="{{body}}"><img src="{{body}}"></a>
+          <a href="{{imageUrl}}"><img src="{{imageUrl}}"></a>
+          <div class="post-body">
+{{#markdown}}
+{{imageBody}}
+{{/markdown}}
+          </div>
         </div>
       {{else}}
         {{#if isYoutube}}

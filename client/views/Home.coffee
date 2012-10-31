@@ -30,7 +30,7 @@ Template.home.events
   'keyup textarea': (e)->
     $newPost = $('.new-post')
     $newPost.attr('class', 'new-post post')
-    type = Cork.Helpers.detectType($(e.currentTarget).val())
+    type = Cork.Helpers.detectMedia($(e.currentTarget).val()).type
     $newPost.addClass type
 
 Template.home.rendered = ->

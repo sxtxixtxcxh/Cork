@@ -24,17 +24,11 @@ Cork.Models.Posts =
 
     body = attributes.body
     if body
-      attributes.type = Cork.Helpers.detectType(body)
-      if body.match(/^http/)
-        if attributes.type is 'youtube'
-          $link = $('<a>').attr('href', body)
-          url = $link[0]
-          params = url.search.split('&')
-          queryObject = {}
-          _.each params, (item, index)->
-            keyValuePair = item.split('=')
-            queryObject[keyValuePair[0].replace(/^\?/, '')] = keyValuePair[1]
-          attributes.type = 'youtube'
-          attributes.videoId = queryObject.v
+      media = Cork.Helpers.detectMedia(body)
+      attributes.type = media.type
+      attributes.mediaUrl = media.mediaUrl
+      if attributes.type is 'youtube'
+        url = attributes.mediaUrl
+        attributes.videoId = Cork.Helpers.queryStringToObject(url.search).v
 
     attributes
