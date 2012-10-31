@@ -32,12 +32,16 @@ Cork.Helpers.resetCenter =->
 class CorkRouter extends Backbone.Router
   routes:
     "": "main"
-    ":board": "board"
+    "Home": "myBoard"
+    "boards/:board": "showBoard"
 
   main: () ->
-    @board()
+    @showBoard()
 
-  board: (boardSlug)->
+  myBoard: ()->
+    @showBoard()
+
+  showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)
     Cork.Helpers.resetCenter()
 
@@ -45,7 +49,7 @@ class CorkRouter extends Backbone.Router
 Router = new CorkRouter()
 
 Meteor.startup ->
-  $(document).on 'click', 'header a', (e)->
+  $(document).on 'click', 'header a[href^=/]', (e)->
     e.preventDefault()
     Router.navigate $(this).attr('href'), true
 

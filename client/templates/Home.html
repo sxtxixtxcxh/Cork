@@ -4,20 +4,18 @@
       {{> posts }}
     </div>
     {{#if loggedIn}}
-      {{#unless isObserver}}
-        <div class="post new-post">
-          <div class="control-group">
-            <div class="controls">
-              <textarea id="new-post" rows="5"></textarea>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <button class="btn" id="create-new-post">Post!</button>
-            </div>
+      <div class="post new-post">
+        <div class="control-group">
+          <div class="controls">
+            <textarea id="new-post" rows="5"></textarea>
           </div>
         </div>
-      {{/unless}}
+        <div class="control-group">
+          <div class="controls">
+            <button class="btn" id="create-new-post">Post!</button>
+          </div>
+        </div>
+      </div>
     {{/if}}
   </div>
   <header>
@@ -30,7 +28,7 @@
       {{#if anyBoards}}
         <ul>
           {{#each boards}}
-          <li class="icon-check{{boardSelectedClass}}"><a href="/{{slug}}">{{name}}</a></li>
+            <li><a href="/boards/{{slug}}"><i class="icon-check{{boardSelectedClass}}"/>{{name}}</a></li>
           {{/each}}
         </ul>
       {{/if}}
