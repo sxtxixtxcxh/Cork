@@ -14,9 +14,15 @@ Template.home.events
   'click #create-new-post': (e)->
     e.preventDefault()
     $newPost = $('#new-post')
+    return unless $newPost.val()
+    $body = $('body')
     Cork.Models.Posts.create
       body: $newPost.val()
       userId: Meteor.userId()
+      position:
+        x: parseInt($body.css('backgroundPositionX')) * -1
+        y: parseInt($body.css('backgroundPositionY')) * -1
+        z: 10
     $newPost.val('')
     $('.new-post').attr('class', 'new-post post')
   'mousedown textarea': (e)->
