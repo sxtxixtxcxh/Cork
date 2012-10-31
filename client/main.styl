@@ -52,7 +52,21 @@ header
       width: 35px
       height: 24px
       margin-top: -2px
-
+  .add-post
+    position: absolute
+    top: 22px
+    left: 50%
+    margin-left: -9px
+    text-decoration: none
+    text-align: center
+    font-size: 18px
+    transition: all .2s
+    width: 18px
+    color: #fff
+    opacity: 0.6
+    &:hover
+      font-size: 22px
+      top: 19px
 nav.board-menu
   float: left
   margin-top: 3px
@@ -64,11 +78,14 @@ nav.board-menu
     padding: 0
     display: inline-block
     a
-      display: inline-block
+      display: block
       text-decoration: none
+      padding-left: 20px
       color: #fff
-  li
-    margin-left: 40px
+      whitespace: no-wrap
+      i
+        margin-left: -10px
+        float: left
 
 p
   margin-top: 0
@@ -128,8 +145,6 @@ post-bg-color = #f9ee70
   .post-body
     max-height: 210px
     overflow-y: auto
-    &:hover
-      cursor: default
   .delete-link
     display: none
     position: absolute
@@ -139,6 +154,8 @@ post-bg-color = #f9ee70
       cursor: pointer
   &:hover
     cursor: move
+    &.selected:hover .post-body
+      cursor: default
     .delete-link, .byline
       display: block
   .byline

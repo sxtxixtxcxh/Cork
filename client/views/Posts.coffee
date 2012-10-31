@@ -13,11 +13,11 @@ Template.posts.helpers
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
-  $post.css('opacity', 1)
   Cork.Helpers.addExternalFavicon($post)
   id = this.data._id
-
-  return unless Meteor.user()
+  $post.css('opacity', 1) unless Meteor.user()
+  return unless Meteor.user() and Meteor.userLoaded()
+  $post.css('opacity', 1)
   return if this.moveBound
   posX = this.data.position.x
   posY = this.data.position.y
@@ -46,12 +46,14 @@ Template.post_detail.rendered =->
   this.moveBound = true
 
 Template.post_detail.events
+  'click': (e)->
+    $(e.target).closest('.post').toggleClass('selected')
   'click .delete-link': (e)->
     e.preventDefault()
     Cork.Models.Posts.delete(this._id)
   'mousedown .post-youtube': (e)->
     e.stopPropagation() unless Modernizr.touch
-  'mousedown .post-body': (e)->
+  'mousedown .selected .post-body': (e)->
     e.stopPropagation() unless Modernizr.touch
 
 Template.post_detail.helpers
