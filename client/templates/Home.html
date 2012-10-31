@@ -3,20 +3,7 @@
     <div id="center">
       {{> posts }}
     </div>
-    {{#if loggedIn}}
-      <div class="post new-post">
-        <div class="control-group">
-          <div class="controls">
-            <textarea id="new-post" rows="5"></textarea>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <button class="btn" id="create-new-post">Post!</button>
-          </div>
-        </div>
-      </div>
-    {{/if}}
+    {{> new_post }}
   </div>
   <header>
     <div class="span2" style="float: right">
@@ -39,4 +26,23 @@
   </header>
 </template>
 
+<template name="new_post">
+  {{#if showNewPostOverlay}}
+    <div class="overlay transition" id="new-post-overlay">
+      <div class="post new-post">
+        <a class="delete-link icon-remove-sign"></a>
+        <div class="control-group">
+          <div class="controls">
+            <textarea id="new-post" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button class="btn" id="create-new-post">Post!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</template>
 

@@ -64,6 +64,8 @@ header
     width: 18px
     color: #fff
     opacity: 0.6
+    &.cancel-add-post
+      tranform: rotate(-45deg)
     &:hover
       font-size: 22px
       top: 19px
@@ -178,9 +180,20 @@ post-bg-color = #f9ee70
       vertical-align: center
       width: 30px
 
+.overlay
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  opacity: 0
+  background: rgba(0,0,0,0.5)
+
 .new-post
-  bottom: 10px
-  left: 10px
+  top: 50%
+  left: 50%
+  margin-top: -65px
+  margin-left: -120px
   opacity: 1
   &.image
     padding-bottom: 20px

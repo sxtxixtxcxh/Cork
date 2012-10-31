@@ -8,8 +8,9 @@ Cork.boards = Boards.find()
 Template.posts.helpers
   posts: ->
     Cork.posts
-  isObserver: ->
-    Session.get('isObserver')
+  loggedIn: ->
+    Meteor.user
+
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
