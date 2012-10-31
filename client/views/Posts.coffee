@@ -13,15 +13,16 @@ Template.posts.helpers
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
-  Cork.Helpers.addExternalFavicon($post)
+  Cork.Helpers.addExternalFavicon($post.find('.post-body'))
   id = this.data._id
   $post.css('opacity', 1) unless Meteor.user()
+
   return unless Meteor.user() and Meteor.userLoaded()
   $post.css('opacity', 1)
+
   return if this.moveBound
   posX = this.data.position.x
   posY = this.data.position.y
-
   $post.on
     'movestart': (e)->
       e.stopPropagation()
@@ -65,11 +66,12 @@ Template.post_detail.helpers
   isYoutube: ->
     if this.type?
       this.type is 'youtube'
+  mediaBody: ->
+    escapedUrl = this.mediaUrl.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
+    mediaUrlRegex = new RegExp("^#{escapedUrl}|#{escapedUrl}$","g")
+    this.body.replace(mediaUrlRegex, '')
   imageUrl: ->
     this.mediaUrl || this.body
-  imageBody: ->
-    mediaUrlRegex = new RegExp("^"+this.mediaUrl,"g")
-    this.body.replace(mediaUrlRegex, '')
   canDelete: ->
     return Meteor.user()
   author: ->

@@ -15,11 +15,11 @@
       {{#if isImage}}
         <div class="post-image">
           <a href="{{imageUrl}}"><img src="{{imageUrl}}"></a>
-          <div class="post-body">
+        </div>
+        <div class="post-body">
 {{#markdown}}
-{{imageBody}}
+{{mediaBody}}
 {{/markdown}}
-          </div>
         </div>
       {{else}}
         {{#if isYoutube}}
@@ -30,6 +30,11 @@
                 <param name="allowscriptaccess" value="always"></param>
                 <embed src="http://www.youtube.com/v/{{videoId}}&rel=0&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="{{width}}" height="{{height}}"></embed>
               </object>
+          </div>
+          <div class="post-body">
+{{#markdown}}
+{{mediaBody}}
+{{/markdown}}
           </div>
         {{else}}
           <div class="post-body">

@@ -21,14 +21,12 @@ Cork.Models.Posts =
 
   processAttributes: (attributes)->
     attributes.position = @setPosition(attributes)
-
     body = attributes.body
     if body
       media = Cork.Helpers.detectMedia(body)
       attributes.type = media.type
       attributes.mediaUrl = media.mediaUrl
       if attributes.type is 'youtube'
-        url = attributes.mediaUrl
+        url = $('<a>').attr('href', attributes.mediaUrl)[0]
         attributes.videoId = Cork.Helpers.queryStringToObject(url.search).v
-
     attributes
