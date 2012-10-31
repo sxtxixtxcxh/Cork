@@ -3,8 +3,10 @@ Template.home.helpers
     Session.get('isObserver')
   loggedIn: ->
     Meteor.user
+  personalBoard: ->
+    Meteor.user().profile.slug if Meteor.userLoaded()
   anyBoards: ->
-    Cork.boards
+    (Cork.boards || Meteor.user()?.profile.slug)
   boards: ->
     Cork.boards
   boardSelectedClass: ->
@@ -32,8 +34,11 @@ Template.new_post.events
     $newPost = $('#new-post')
     return unless $newPost.val()
     $body = $('body')
-    x = - (parseInt($body.css('backgroundPositionX'), 10)) - 120
-    y = - (parseInt($body.css('backgroundPositionY'), 10))
+    $bgPos = $body.css('backgroundPosition').split(' ')
+    $bgX = parseInt $bgPos[0], 10
+    $bgY = parseInt $bgPos[1], 10
+    x = - $bgX - 120
+    y = - $bgY
     # x = if x >= 0 then x - 120 else x + 120
     Cork.Models.Posts.create
       body: $newPost.val()
@@ -68,28 +73,33 @@ Template.new_post.rendered = ->
   $newPost.focus()
 
 Template.home.rendered = ->
+  return if this.moveBound
   $center = $('#center')
   $body = $('body')
   $bgX = 0
   $bgY = 0
   $centerStartX = $center.position().left
   $centerStartY = $center.position().top
-
   Mousetrap.bind 'a', ->
-    Session.set('showNewPostOverlay', true)
+    if Meteor.userLoaded()
+      Session.set('showNewPostOverlay', true)
 
-  $viewport = $('#viewport')
-  $viewport.on 'movestart', (e)->
-    return if e.finger > 1
-    $centerStartX = $center.position().left
-    $centerStartY = $center.position().top
-    $bgX = parseInt $body.css('backgroundPositionX'), 10
-    $bgY = parseInt $body.css('backgroundPositionY'), 10
-  $viewport.on 'move', (e)->
-    return if e.finger > 1
-    $center.css
-      left: $centerStartX + e.distX
-      top: $centerStartY + e.distY
-    $body.css
-      backgroundPositionX: $bgX + e.distX
-      backgroundPositionY: $bgY + e.distY
+  $document = $(document)
+  $document.on
+    'movestart': (e)->
+      return if e.finger > 1
+      $center = $('#center')
+      $body = $('body')
+      $centerStartX = $center.position().left
+      $centerStartY = $center.position().top
+      $bgPos = $body.css('backgroundPosition').split(' ')
+      $bgX = parseInt $bgPos[0], 10
+      $bgY = parseInt $bgPos[1], 10
+    'move': (e)->
+      return if e.finger > 1
+      $center.css
+        left: $centerStartX + e.distX
+        top: $centerStartY + e.distY
+      $body.css 'backgroundPosition', "#{$bgX+e.distX}px #{$bgY+e.distY}px"
+  , '#viewport'
+  this.moveBound = true

@@ -46,14 +46,22 @@ Cork.Helpers =
 class CorkRouter extends Backbone.Router
   routes:
     "": "main"
-    "Home": "myBoard"
+    "home": "myBoard"
+    "users/:slug": "showUsersBoard"
     "boards/:board": "showBoard"
 
-  main: () ->
+  main: ()->
     @showBoard()
 
   myBoard: ()->
-    @showBoard()
+    if Meteor.user() and Meteor.userLoaded()
+      @showUsersBoard(Meteor.user().profile.slug)
+    else
+      # figure out what to do until the user is loaded
+      @navigate('/', true)
+
+  showUsersBoard: (slug)->
+    @showBoard("user-#{slug}")
 
   showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)

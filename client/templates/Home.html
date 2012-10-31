@@ -14,6 +14,9 @@
     <nav class="board-menu">
       {{#if anyBoards}}
         <ul>
+          {{#if personalBoard}}
+            <li><a href="/users/{{personalBoard}}"><i class="icon-home"/>Home</a></li>
+          {{/if}}
           {{#each boards}}
             <li><a href="/boards/{{slug}}"><i class="icon-check{{boardSelectedClass}}"/>{{name}}</a></li>
           {{/each}}
