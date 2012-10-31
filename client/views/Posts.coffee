@@ -67,6 +67,7 @@ Template.post_detail.helpers
     if this.type?
       this.type is 'youtube'
   mediaBody: ->
+    return '' unless this.mediaUrl
     escapedUrl = this.mediaUrl.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
     mediaUrlRegex = new RegExp("^#{escapedUrl}|#{escapedUrl}$","g")
     this.body.replace(mediaUrlRegex, '')
