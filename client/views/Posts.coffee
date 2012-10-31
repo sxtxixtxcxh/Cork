@@ -28,7 +28,6 @@ Template.post_detail.rendered =->
     'movestart': (e)->
       e.stopPropagation()
       $post.addClass('dragging')
-
     'moveend': (e)->
       e.stopPropagation()
       $post.removeClass('dragging')
@@ -57,6 +56,8 @@ Template.post_detail.events
     e.stopPropagation() unless Modernizr.touch
   'mousedown .selected .post-body': (e)->
     e.stopPropagation() unless Modernizr.touch
+  'mouseleave .selected': (e)->
+    $(e.target).removeClass('selected')
 
 Template.post_detail.helpers
   isObserver: ->
