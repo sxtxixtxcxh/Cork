@@ -4,7 +4,7 @@ Template.home.helpers
   loggedIn: ->
     Meteor.user
   personalBoard: ->
-    Meteor.user().profile.slug if Meteor.userLoaded()
+    Meteor.user().profile?.slug if Meteor.userLoaded()
   anyBoards: ->
     (Cork.boards || Meteor.user()?.profile.slug)
   boards: ->
