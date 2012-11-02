@@ -29,6 +29,7 @@ Template.new_post.events
     setTimeout( ->
       Session.set('showNewPostOverlay', false)
     , 300)
+
   'click #create-new-post': (e)->
     e.preventDefault()
     $newPost = $('#new-post')
@@ -39,7 +40,7 @@ Template.new_post.events
     $bgY = parseInt $bgPos[1], 10
     x = - $bgX - 120
     y = - $bgY
-    # x = if x >= 0 then x - 120 else x + 120
+
     Cork.Models.Posts.create
       body: $newPost.val()
       userId: Meteor.userId()
@@ -55,8 +56,10 @@ Template.new_post.events
 
   'mousedown .new-post': (e)->
     e.stopPropagation()
+
   'mousedown textarea': (e)->
     e.stopPropagation()
+
   'keyup textarea': (e)->
     $newPost = $('.new-post')
     $newPost.attr('class', 'new-post post')
@@ -101,6 +104,7 @@ Template.home.rendered = ->
         x: startPositions.bg.x + x
         y: startPositions.bg.y + y
   , '#viewport'
+
   $document.on
     'movestart': (e)->
       return if e.finger > 1
@@ -118,7 +122,5 @@ Template.home.rendered = ->
         x: startPositions.bg.x+e.distX,
         y: startPositions.bg.y+e.distY
   , '#viewport'
+
   this.moveBound = true
-
-
-
