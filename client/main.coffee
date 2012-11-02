@@ -59,9 +59,8 @@ Cork.Helpers =
     $center = $('#center')
     $body = $('body')
     position = Cork.Helpers.bodyBgAndCenterStart($body, $center)
-    coords = Cork.coordHash.replace(/#/,'')
-    if coords.match(/x:\d+|y:\d+/)
-      console.log coords
+    coords = Cork.coordHash?.replace(/#/,'')
+    if coords?.match(/x:\d+|y:\d+/)
       coords = coords.split(';')
       center = _.map coords, (item)->
         coord = item.split(':')
@@ -127,10 +126,9 @@ Cork.Helpers =
       top: center.y
     bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
 
-    console.log center.$el, center.x, center.y, bg.x, bg.y
 class CorkRouter extends Backbone.Router
   routes:
-    "/": "main"
+    "": "main"
     "home": "myBoard"
     "users/:slug": "showUsersBoard"
     "boards/:board": "showBoard"
