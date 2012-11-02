@@ -1,6 +1,21 @@
 Meteor.subscribe 'users'
 
 Cork.Helpers =
+  bodyBgAndCenterStart: ($body, $center)->
+    bgPos = $body.css('backgroundPosition').split(' ')
+    bgX = parseInt bgPos[0], 10
+    bgY = parseInt bgPos[1], 10
+    centerStartX = $center.position().left
+    centerStartY = $center.position().top
+    return {
+      center:
+        x: centerStartX
+        y: centerStartY
+      bg:
+        x: bgX
+        y: bgY
+    }
+
   addExternalFavicon: (context)->
     context ||= document
     return if $(context).hasClass('image')
@@ -67,6 +82,12 @@ class CorkRouter extends Backbone.Router
     Session.set('boardSlug', boardSlug)
     Cork.Helpers.resetCenter()
 
+Cork.Views.Home =
+  pan: (centerPosition, bgPosition)->
+    centerPosition.$el.css
+      left: centerPosition.x
+      top: centerPosition.y
+    bgPosition.$el.css 'backgroundPosition', "#{bgPosition.x}px #{bgPosition.y}px"
 
 Router = new CorkRouter()
 

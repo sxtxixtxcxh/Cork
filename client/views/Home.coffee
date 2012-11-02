@@ -76,30 +76,49 @@ Template.home.rendered = ->
   return if this.moveBound
   $center = $('#center')
   $body = $('body')
-  $bgX = 0
-  $bgY = 0
-  $centerStartX = $center.position().left
-  $centerStartY = $center.position().top
+  startPositions = undefined
+
   Mousetrap.bind 'a', ->
     if Meteor.userLoaded()
       Session.set('showNewPostOverlay', true)
 
   $document = $(document)
+
+  $document.on
+    'mousewheel': (e)->
+      e.preventDefault()
+      $center = $('#center')
+      $body = $('body')
+      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+      x = e.originalEvent.wheelDeltaX
+      y = e.originalEvent.wheelDeltaY
+      Cork.Views.Home.pan
+        $el: $center
+        x: startPositions.center.x + x
+        y: startPositions.center.y + y
+      ,
+        $el: $body
+        x: startPositions.bg.x + x
+        y: startPositions.bg.y + y
+  , '#viewport'
   $document.on
     'movestart': (e)->
       return if e.finger > 1
       $center = $('#center')
       $body = $('body')
-      $centerStartX = $center.position().left
-      $centerStartY = $center.position().top
-      $bgPos = $body.css('backgroundPosition').split(' ')
-      $bgX = parseInt $bgPos[0], 10
-      $bgY = parseInt $bgPos[1], 10
+      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
     'move': (e)->
       return if e.finger > 1
-      $center.css
-        left: $centerStartX + e.distX
-        top: $centerStartY + e.distY
-      $body.css 'backgroundPosition', "#{$bgX+e.distX}px #{$bgY+e.distY}px"
+      Cork.Views.Home.pan
+        $el: $center,
+        x: startPositions.center.x + e.distX,
+        y: startPositions.center.y + e.distY
+      ,
+        $el: $body,
+        x: startPositions.bg.x+e.distX,
+        y: startPositions.bg.y+e.distY
   , '#viewport'
   this.moveBound = true
+
+
+

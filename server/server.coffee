@@ -4,8 +4,8 @@ Accounts.onCreateUser (options, user)->
     user.profile = options.profile
   return user
 
-Meteor.publish 'users', ->
-  Meteor.users.find()
+# Meteor.publish 'users', ->
+#   Meteor.users.find()
 
 Meteor.publish "posts", (boardSlug)->
   Posts.find({boardSlug: boardSlug})
