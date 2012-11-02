@@ -88,21 +88,24 @@ Template.home.rendered = ->
   $document = $(document)
 
   $document.on
-    'mousewheel': (e)->
+    'mousewheel DOMMouseScroll': (e, arg2)->
       e.preventDefault()
+      delta = e.wheelDelta || -e.detail
+
       $center = $('#center')
       $body = $('body')
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
       x = e.originalEvent.wheelDeltaX
       y = e.originalEvent.wheelDeltaY
-      Cork.Views.Home.pan
+      speed = 0.4
+      Cork.Helpers.pan
         $el: $center
-        x: startPositions.center.x + x
-        y: startPositions.center.y + y
+        x: startPositions.center.x + x*speed
+        y: startPositions.center.y + y*speed
       ,
         $el: $body
-        x: startPositions.bg.x + x
-        y: startPositions.bg.y + y
+        x: startPositions.bg.x + x*speed
+        y: startPositions.bg.y + y*speed
   , '#viewport'
 
   $document.on
@@ -113,7 +116,7 @@ Template.home.rendered = ->
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
     'move': (e)->
       return if e.finger > 1
-      Cork.Views.Home.pan
+      Cork.Helpers.pan
         $el: $center,
         x: startPositions.center.x + e.distX,
         y: startPositions.center.y + e.distY
