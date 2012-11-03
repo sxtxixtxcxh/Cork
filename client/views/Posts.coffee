@@ -39,6 +39,8 @@ Template.post_detail.rendered =->
             x: posX
             y: posY
             z: 10
+          updatedAt:
+            Cork.Models.Posts.timestamp()
     'move': (e)->
       e.stopPropagation()
       $post.css

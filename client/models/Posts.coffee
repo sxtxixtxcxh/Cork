@@ -13,6 +13,9 @@ Cork.Models.Posts =
       $set:
         attributes
 
+  timestamp: ()->
+    new Date().getTime()
+
   setPosition: (attributes)->
     attributes.position   ||= {}
     attributes.position.x ||= 0
@@ -22,6 +25,9 @@ Cork.Models.Posts =
   processAttributes: (attributes)->
     attributes.position = @setPosition(attributes)
     body = attributes.body
+    timestamp = @timestamp()
+    attributes.createdAt ||= timestamp
+    attributes.updatedAt = timestamp
     if body
       media = Cork.Helpers.detectMedia(body)
       attributes.type = media.type
