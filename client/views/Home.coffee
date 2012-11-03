@@ -40,7 +40,6 @@ Template.new_post.events
     $bgY = parseInt $bgPos[1], 10
     x = - $bgX - 120
     y = - $bgY
-
     Cork.Models.Posts.create
       body: $newPost.val()
       userId: Meteor.userId()
@@ -86,27 +85,39 @@ Template.home.rendered = ->
       Session.set('showNewPostOverlay', true)
 
   $document = $(document)
-
   $document.on
-    'mousewheel DOMMouseScroll': (e, arg2)->
-      e.preventDefault()
-      delta = e.wheelDelta || -e.detail
-
-      $center = $('#center')
-      $body = $('body')
-      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
-      x = e.originalEvent.wheelDeltaX
-      y = e.originalEvent.wheelDeltaY
-      speed = 0.4
-      Cork.Helpers.pan
-        $el: $center
-        x: startPositions.center.x + x*speed
-        y: startPositions.center.y + y*speed
-      ,
-        $el: $body
-        x: startPositions.bg.x + x*speed
-        y: startPositions.bg.y + y*speed
+    'mousewheel DOMMouseScroll': _.debounce( (e)->
+      delta = e.originalEvent.wheelDelta || - e.originalEvent.detail
+      scale = parseFloat($('#center').css('transform')?.scale?.split(',')?[0]) || 1
+      if delta > 0 and scale is 0.25
+        zoomScale = 1
+      if scale is 1 and delta < 0
+        zoomScale = 0.25
+      if zoomScale
+        Cork.Helpers.zoom(zoomScale)
+    , 300, true)
   , '#viewport'
+
+  # $document.on
+  #   'mousewheel DOMMouseScroll': (e, arg2)->
+  #     e.preventDefault()
+  #     delta = e.wheelDelta || -e.detail
+
+  #     $center = $('#center')
+  #     $body = $('body')
+  #     startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+  #     x = e.originalEvent.wheelDeltaX
+  #     y = e.originalEvent.wheelDeltaY
+  #     speed = 0.4
+  #     Cork.Helpers.pan
+  #       $el: $center
+  #       x: startPositions.center.x + x*speed
+  #       y: startPositions.center.y + y*speed
+  #     ,
+  #       $el: $body
+  #       x: startPositions.bg.x + x*speed
+  #       y: startPositions.bg.y + y*speed
+  # , '#viewport'
 
   $document.on
     'movestart': (e)->
