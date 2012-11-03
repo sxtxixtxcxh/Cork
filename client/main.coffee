@@ -88,7 +88,7 @@ Cork.Helpers =
     return if $body.hasClass('transition')
     $center = $('#center')
     speed ||= 1
-    dist = 10 * speed
+    dist = 240 * speed
     $body.addClass('transition')
     $center.addClass('transition')
     setTimeout(->
@@ -126,51 +126,32 @@ Cork.Helpers =
       top: center.y
     bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
 
-class CorkRouter extends Backbone.Router
-  routes:
-    "": "main"
-    "home": "myBoard"
-    "users/:slug": "showUsersBoard"
-    "boards/:board": "showBoard"
-
-  main: ()->
-    @showBoard()
-
-  myBoard: ()->
-    if Meteor.user() and Meteor.userLoaded()
-      @showUsersBoard(Meteor.user().profile.slug)
-    else
-      # figure out what to do until the user is loaded
-      @navigate('/', true)
-
-  showUsersBoard: (slug)->
-    @showBoard("user-#{slug}")
-
-  showBoard: (boardSlug)->
-    Session.set('boardSlug', boardSlug)
-    Cork.Helpers.centerBoard()
+  zoom: (x)->
+    $center = $('#center')
+    $center.transition {
+      scale: "#{x}"
+    }, 300, 'in'
 
 
-
-Router = new CorkRouter()
+Router = new MainRouter()
 
 Meteor.startup ->
-  Mousetrap.bind ['shift+left', 'command+left', 'ctrl+left'], ->
-    Cork.Helpers.slide('left', 5)
-  Mousetrap.bind ['shift+right', 'command+righ', 'ctrl+right'], ->
-    Cork.Helpers.slide('right', 5)
+  Mousetrap.bind ['shift+left', 'command+left', 'ctrl+left', 'h'], ->
+    Cork.Helpers.slide('left', 3)
+  Mousetrap.bind ['shift+right', 'command+right', 'ctrl+right', ], ->
+    Cork.Helpers.slide('right', 3)
   Mousetrap.bind ['shift+up', 'command+up', 'ctrl+up'], ->
-    Cork.Helpers.slide('up', 5)
+    Cork.Helpers.slide('up', 3)
   Mousetrap.bind ['shift+down', 'command+down', 'ctrl+down'], ->
-    Cork.Helpers.slide('down', 5)
+    Cork.Helpers.slide('down', 3)
 
-  Mousetrap.bind 'left', ->
+  Mousetrap.bind ['left', 'h'], ->
     Cork.Helpers.slide('left')
-  Mousetrap.bind 'right', ->
+  Mousetrap.bind ['right', 'l'], ->
     Cork.Helpers.slide('right')
-  Mousetrap.bind 'up', ->
+  Mousetrap.bind ['up', 'k'], ->
     Cork.Helpers.slide('up')
-  Mousetrap.bind 'down', ->
+  Mousetrap.bind ['down', 'j'], ->
     Cork.Helpers.slide('down')
 
   $(document).on 'click', 'header a[href^=/]', (e)->
