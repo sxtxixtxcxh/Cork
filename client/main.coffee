@@ -1,3 +1,5 @@
+Meteor.subscribe 'users'
+
 Router = new MainRouter()
 
 Meteor.startup ->
