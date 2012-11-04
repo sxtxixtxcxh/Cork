@@ -3,6 +3,8 @@ Meteor.subscribe 'users'
 Router = new MainRouter()
 
 Meteor.startup ->
+  if Modernizr.hasEvent('mousewheel')
+    $('html').addClass('mousewheel')
   window.$body = $('body')
   window.$center = $('#center')
 

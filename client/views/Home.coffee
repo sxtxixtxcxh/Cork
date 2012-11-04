@@ -115,13 +115,36 @@ Template.home.rendered = ->
     #   if zoomScale
     #     Cork.Helpers.zoom(zoomScale)
     # , 300, true)
-    'mousewheel': (e)->
+    'DOMMouseScroll': (e)->
       e.preventDefault()
+      e = e.originalEvent
       $center = $('#center')
       $body = $('body')
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
-      x = e.originalEvent.wheelDeltaX
-      y = e.originalEvent.wheelDeltaY
+      x = y = 0
+      if e.shiftKey
+        x = - e.detail
+      else
+        y = - e.detail
+      speed = 2
+      Cork.Helpers.pan
+        $el: $center
+        x: startPositions.center.x + x*speed
+        y: startPositions.center.y + y*speed
+      ,
+        $el: $body
+        x: startPositions.bg.x + x*speed
+        y: startPositions.bg.y + y*speed
+
+
+    'mousewheel': (e)->
+      e.preventDefault()
+      e = e.originalEvent
+      $center = $('#center')
+      $body = $('body')
+      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+      x = e.wheelDeltaX
+      y = e.wheelDeltaY
       speed = 0.4
       Cork.Helpers.pan
         $el: $center
