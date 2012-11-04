@@ -11,8 +11,9 @@ Template.posts.helpers
   loggedIn: ->
     Meteor.user
 
-Template.posts.rendered =->
-  Cork.Helpers.centerBoard()
+Template.posts.rendered = _.once(->
+  setTimeout(_.bind( Cork.Helpers.centerBoard, Cork.Helpers ), 500)
+)
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
