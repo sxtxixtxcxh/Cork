@@ -38,9 +38,7 @@ Template.post_detail.rendered =->
           position:
             x: Math.floor(posX*scale)
             y: Math.floor(posY*scale)
-            z: 10
-          updatedAt:
-            Cork.Models.Posts.timestamp()
+          updatedAt: Cork.Models.Posts.timestamp()
     'move': (e)->
       e.stopPropagation()
       scale = 1/(Session.get('scale') or 1)

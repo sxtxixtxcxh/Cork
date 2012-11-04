@@ -40,11 +40,10 @@ Cork.Helpers.pan = (center, bg)->
     left: center.x
     top: center.y
   bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
-  setTimeout(->
-    relativeX = ($('#viewport').width()/2 - center.$el.position().left)
-    relativeY = - ($('#viewport').height()/2 - center.$el.position().top)
-    $('#viewport-permalink').attr 'href', "#x:#{relativeX};y:#{relativeY}"
-  , 300)
+  relativeX = $('#viewport').width()/2 - center.$el.position().left
+  relativeY = - ($('#viewport').height()/2 - center.$el.position().top)
+  $('#viewport-permalink').attr 'href', "#x:#{relativeX};y:#{relativeY}"
+  true
 
 Cork.Helpers.zoom = (x)->
   Session.set('scale', x)

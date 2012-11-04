@@ -8,7 +8,7 @@ Meteor.publish "users", ()->
   return Meteor.users.find({})
 
 Meteor.publish "posts", (boardSlug)->
-  Posts.find({boardSlug: boardSlug})
+  Posts.find({boardSlug: boardSlug}, sort:{createdAt: 1})
 
 Meteor.publish "boards", (userId)->
   Boards.find({users: userId})
