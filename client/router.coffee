@@ -21,9 +21,7 @@ class MainRouter extends Backbone.Router
   showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)
     Cork.centerInterval = setInterval(->
-      console.log 'trying to center'
       return unless $('#center').length > 0
-      console.log $('#center').length
       setTimeout(->
         Cork.Helpers.centerBoard()
       , 200)
