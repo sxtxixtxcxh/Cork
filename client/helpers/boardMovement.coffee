@@ -36,15 +36,19 @@ Cork.Helpers.slide = (direction, speed)->
     y: position.bg.y
 
 Cork.Helpers.pan = (center, bg)->
-    center.$el.css
-      left: Math.floor(center.x)
-      top: Math.floor(center.y)
-    bg.$el.css 'backgroundPosition', "#{Math.floor(bg.x)}px #{Math.floor(bg.y)}px"
+  center.$el.css
+    left: center.x
+    top: center.y
+  bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
+  setTimeout(->
+    relativeX = ($('#viewport').width()/2 - center.$el.position().left)
+    relativeY = - ($('#viewport').height()/2 - center.$el.position().top)
+    $('#viewport-permalink').attr 'href', "#x:#{relativeX};y:#{relativeY}"
+  , 300)
 
 Cork.Helpers.zoom = (x)->
-    Session.set('scale', x)
-    $center = $('#center')
-    $center.transition {
-      scale: "#{x}"
-    }, 300, 'in'
-
+  Session.set('scale', x)
+  $center = $('#center')
+  $center.transition {
+    scale: "#{x}"
+  }, 300, 'in'

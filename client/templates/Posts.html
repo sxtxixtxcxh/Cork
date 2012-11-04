@@ -8,6 +8,7 @@
 
 <template name="post_detail">
   <div id="post-{{_id}}" class="post askew transition {{type}}" style="left: {{left}}px; top: {{top}}px;">
+    <a class="post-permalink icon-link" href="#post:{{_id}}"></a>
     {{#constant}}
       {{#if canDelete}}
         <a class="delete-link icon-remove-sign"></a>

@@ -16,7 +16,7 @@ class MainRouter extends Backbone.Router
       @navigate('/', true)
 
   showUsersBoard: (slug)->
-    @showBoard("user-#{slug}")
+    @showBoard("user-#{slug.replace(/\/$/, '')}")
 
   showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)

@@ -124,7 +124,7 @@ post-bg-color = #f9ee70
   position: absolute
   width: auto
   &.youtube
-    cite, .delete-link, textarea, .post-body
+    cite, .post-permalink, .delete-link, textarea, .post-body
       color: #eee
     object, embed
       max-width: 220px
@@ -150,11 +150,20 @@ post-bg-color = #f9ee70
     cursor: move
     &.selected:hover .post-body
       cursor: default
-    .delete-link, .byline
+    .delete-link, .post-permalink, .byline
       display: block
   .post-body
     max-height: 210px
     overflow-y: auto
+  .post-permalink
+    display: none
+    position: absolute
+    text-decoration: none
+    color: #000
+    left: -3px
+    top: -3px
+    &:hover
+      cursor: pointer
   .delete-link
     display: none
     position: absolute

@@ -20,7 +20,6 @@ Template.post_detail.rendered =->
 
   return unless Meteor.user() and Meteor.userLoaded()
   $post.css('opacity', 1)
-
   return if this.moveBound
   posX = this.data.position.x
   posY = this.data.position.y
@@ -54,6 +53,10 @@ Template.post_detail.rendered =->
 Template.post_detail.events
   'click': (e)->
     $(e.target).closest('.post').toggleClass('selected')
+  'click .post-permalink': (e)->
+    e.preventDefault()
+    url = $("<a>").attr('href', e.target.href)[0]
+    window.location.hash = url.hash
   'click .delete-link': (e)->
     e.preventDefault()
     Cork.Models.Posts.delete(this._id)
@@ -94,3 +97,7 @@ Template.post_detail.helpers
     this.position?.x
   top: ->
     this.position?.y
+  relativeLeft: ->
+    parseFloat(this.position?.x + 120)
+  relativeTop: ->
+    parseFloat(this.position?.y * -1)
