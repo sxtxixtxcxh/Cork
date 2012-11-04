@@ -37,9 +37,9 @@ Cork.Helpers.slide = (direction, speed)->
 
 Cork.Helpers.pan = (center, bg)->
     center.$el.css
-      left: center.x
-      top: center.y
-    bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
+      left: Math.floor(center.x)
+      top: Math.floor(center.y)
+    bg.$el.css 'backgroundPosition', "#{Math.floor(bg.x)}px #{Math.floor(bg.y)}px"
 
 Cork.Helpers.zoom = (x)->
     Session.set('scale', x)

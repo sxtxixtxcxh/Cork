@@ -33,19 +33,22 @@ Template.post_detail.rendered =->
       $post.removeClass('dragging')
       posX = $post.position().left
       posY = $post.position().top
+      scale = 1/(Session.get('scale') or 1)
       Posts.update id,
         $set:
           position:
-            x: posX
-            y: posY
+            x: Math.floor(posX*scale)
+            y: Math.floor(posY*scale)
             z: 10
           updatedAt:
             Cork.Models.Posts.timestamp()
     'move': (e)->
       e.stopPropagation()
+      scale = 1/(Session.get('scale') or 1)
       $post.css
-        left: posX + e.distX
-        top: posY + e.distY
+        left: Math.floor((posX*scale + e.distX*scale))
+        top: Math.floor((posY*scale + e.distY*scale))
+
   this.moveBound = true
 
 Template.post_detail.events
