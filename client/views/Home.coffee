@@ -90,6 +90,7 @@ Template.home.rendered = ->
   $document.on
     'movestart': (e)->
       return if e.finger > 1
+      window.location.hash = ''
       $center = $('#center')
       $body = $('body')
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
@@ -142,7 +143,7 @@ Template.home.rendered = ->
     'mousewheel wheel': (e)->
       e.preventDefault()
       e = e.originalEvent || e
-
+      window.location.hash = ''
       $center = $('#center')
       $body = $('body')
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
