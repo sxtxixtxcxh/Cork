@@ -11,12 +11,9 @@ Template.posts.helpers
   loggedIn: ->
     Meteor.user
 
-Template.posts.rendered = _.once(->
-  setTimeout(_.bind( Cork.Helpers.centerBoard, Cork.Helpers ), 500)
-)
-
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))
+  Cork.Helpers.centerBoard() if window.location.hash is "#post:#{this.data._id}"
   Cork.Helpers.addExternalFavicon($post.find('.post-body'))
   id = this.data._id
   $post.css('opacity', 1) unless Meteor.user()
