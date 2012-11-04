@@ -27,6 +27,8 @@ Template.post_detail.rendered =->
     'movestart': (e)->
       e.stopPropagation()
       $post.addClass('dragging')
+      posX = $post.position().left
+      posY = $post.position().top
     'moveend': (e)->
       e.stopPropagation()
       $post.removeClass('dragging')
