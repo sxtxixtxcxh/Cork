@@ -53,7 +53,7 @@ Cork.Helpers.readCoords = (coordHash)->
     return false unless post
     coords =
       x: post.position.x + 120
-      y: - post.position.y
+      y: - post.position.y - $("#post-#{id}").height()/2
   else
     coords = false
   return coords

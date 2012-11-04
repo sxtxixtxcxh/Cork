@@ -26,6 +26,7 @@ Meteor.startup ->
 
   $(document).on 'click', 'header a[href^=/]', (e)->
     e.preventDefault()
+    window.location.hash = ''
     Router.navigate $(this).attr('href'), true
 
   Cork.checkUrlInterval = setInterval(Cork.Helpers.checkUrl, 50)

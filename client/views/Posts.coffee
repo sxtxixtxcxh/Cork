@@ -11,6 +11,8 @@ Template.posts.helpers
   loggedIn: ->
     Meteor.user
 
+Template.posts.rendered =->
+  Cork.Helpers.centerBoard()
 
 Template.post_detail.rendered =->
   $post = $(this.find('.post'))

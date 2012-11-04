@@ -152,11 +152,14 @@ post-bg-color = #f9ee70
       cursor: default
     .delete-link, .post-permalink, .byline
       display: block
+      opacity: 1
   .post-body
     max-height: 210px
     overflow-y: auto
+  .post-permalink, .delete-link, .byline
+    transition: all 0.3s ease-in
   .post-permalink
-    display: none
+    opacity: 0
     position: absolute
     text-decoration: none
     color: #000
@@ -165,7 +168,7 @@ post-bg-color = #f9ee70
     &:hover
       cursor: pointer
   .delete-link
-    display: none
+    opacity: 0
     position: absolute
     right: -3px
     top: -3px
@@ -175,7 +178,7 @@ post-bg-color = #f9ee70
     bottom: -10px
     position: absolute
     right: -10px
-    display: none
+    opacity: 0
     cite
       display: inline-block
       float: left
