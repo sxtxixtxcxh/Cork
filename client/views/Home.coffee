@@ -115,45 +115,48 @@ Template.home.rendered = ->
     #   if zoomScale
     #     Cork.Helpers.zoom(zoomScale)
     # , 300, true)
-    'DOMMouseScroll': (e)->
+    # 'wheel': (e)->
+    #   e.preventDefault()
+    #   e = e.originalEvent
+    #   $center = $('#center')
+    #   $body = $('body')
+    #   startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+    #   console.log e
+    #   x = y = 0
+    #   switch e.axis
+    #     when 1
+    #       x = - e.detail
+    #     when 2
+    #       y = - e.detail
+    #   speed = 1
+    #   Cork.Helpers.pan
+    #     $el: $center
+    #     x: startPositions.center.x + x*speed
+    #     y: startPositions.center.y + y*speed
+    #   ,
+    #     $el: $body
+    #     x: startPositions.bg.x + x*speed
+    #     y: startPositions.bg.y + y*speed
+
+
+    'mousewheel wheel': (e)->
       e.preventDefault()
-      e = e.originalEvent
+      e = e.originalEvent || e
+
       $center = $('#center')
       $body = $('body')
       startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
-      x = y = 0
-      if e.shiftKey
-        x = - e.detail
-      else
-        y = - e.detail
-      speed = 2
-      Cork.Helpers.pan
-        $el: $center
-        x: startPositions.center.x + x*speed
-        y: startPositions.center.y + y*speed
-      ,
-        $el: $body
-        x: startPositions.bg.x + x*speed
-        y: startPositions.bg.y + y*speed
-
-
-    'mousewheel': (e)->
-      e.preventDefault()
-      e = e.originalEvent
-      $center = $('#center')
-      $body = $('body')
-      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
-      x = e.wheelDeltaX
-      y = e.wheelDeltaY
+      x = e.wheelDeltaX || - e.deltaX || 0
+      y = e.wheelDeltaY || - e.deltaY || 0
       speed = 0.4
       Cork.Helpers.pan
         $el: $center
-        x: startPositions.center.x + x*speed
-        y: startPositions.center.y + y*speed
+        x: Math.floor(startPositions.center.x + x*speed)
+        y: Math.floor(startPositions.center.y + y*speed)
       ,
         $el: $body
-        x: startPositions.bg.x + x*speed
-        y: startPositions.bg.y + y*speed
+        x: Math.floor(startPositions.bg.x + x*speed)
+        y: Math.floor(startPositions.bg.y + y*speed)
 
   , '#viewport'
 
