@@ -74,23 +74,30 @@ header
       width: 35px
       height: 24px
       margin-top: -2px
-  .add-post
-    position: absolute
-    top: 22px
+  .mini-tools
+    height: 51px
     left: 50%
-    margin-left: -9px
-    text-decoration: none
+    line-height: 30px
+    margin-left: -50px
+    padding: 15px 0
+    position: absolute
     text-align: center
-    font-size: 18px
-    transition: all .2s
-    width: 18px
-    color: #fff
-    opacity: 0.6
-    &.cancel-add-post
-      tranform: rotate(-45deg)
-    &:hover
-      font-size: 22px
-      top: 19px
+    top: 0
+    width: 100px
+    a
+      bottom: 0
+      color: #fff
+      display: inline-block
+      font-size: 18px
+      line-height: 18px
+      opacity: 0.6
+      position: relative
+      text-decoration: none
+      transition: all .2s
+      width: 18px
+      &:hover
+        font-size: 22px
+        bottom: -2px
 
 nav.board-menu
   float: left
@@ -132,6 +139,12 @@ p
 
 post-bg-color = #efefef
 post-bg-color = #f9ee70
+
+.dialog
+  background: #fff url('/images/paper.png') center center
+  border-radius: 3px
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.3)
+  padding: 20px
 
 .post
   background: post-bg-color url('/images/paper.png') center center
@@ -225,6 +238,13 @@ post-bg-color = #f9ee70
   background: rgba(0,0,0,0.5)
   &#new-post-overlay:hover
     cursor: move
+
+.settings
+  width: 50%
+  left: 50%
+  top: 100px
+  position: absolute
+  margin-left: -25%
 
 .new-post
   top: 50%

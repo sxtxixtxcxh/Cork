@@ -10,18 +10,22 @@ class MainRouter extends Backbone.Router
 
   myBoard: ()->
     if Meteor.user() and Meteor.userLoaded()
-      @showUsersBoard(Meteor.user().profile.slug)
+      @showUsersBoard(Meteor.user().username)
     else
       # figure out what to do until the user is loaded
       @navigate('/', true)
 
   showUsersBoard: (slug)->
-    @showBoard("user-#{slug.replace(/\/$/, '')}")
+    slug = slug.replace(/\/$/, '')
+    user = Meteor.users.findOne({username: slug})
+    @showBoard("user-#{user._id}") if user
 
   showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)
+    board = Boards.findOne slug: boardSlug || ''
+    Session.set('board', board)
     Cork.centerInterval = setInterval(->
-      return unless $('#center').length > 0
+      return unless $center().length > 0
       setTimeout(->
         Cork.Helpers.centerBoard()
       , 200)

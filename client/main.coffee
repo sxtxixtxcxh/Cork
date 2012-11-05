@@ -1,11 +1,16 @@
-Meteor.subscribe 'users'
+Meteor.autosubscribe ->
+  Meteor.subscribe "posts", Session.get('board')?._id
+  Meteor.subscribe "boards", Meteor.userId() if Meteor.user()
+  Meteor.subscribe 'users'
+
+Cork.posts = Posts.find()
+Cork.boards = Boards.find()
 
 Router = new MainRouter()
 
 Meteor.startup ->
   if Modernizr.hasEvent('mousewheel')
     $('html').addClass('mousewheel')
-
   window.$body = ->
     Cork.Helpers.selectorCache('$body', 'body')
   window.$center = ->
@@ -13,9 +18,9 @@ Meteor.startup ->
   window.$viewport = ->
     Cork.Helpers.selectorCache('$viewport', '#viewport')
 
-  Mousetrap.bind ['shift+left', 'command+left', 'ctrl+left', 'h'], ->
+  Mousetrap.bind ['shift+left', 'command+left', 'ctrl+left'], ->
     Cork.Helpers.slide('left', 3)
-  Mousetrap.bind ['shift+right', 'command+right', 'ctrl+right', ], ->
+  Mousetrap.bind ['shift+right', 'command+right', 'ctrl+right'], ->
     Cork.Helpers.slide('right', 3)
   Mousetrap.bind ['shift+up', 'command+up', 'ctrl+up'], ->
     Cork.Helpers.slide('up', 3)

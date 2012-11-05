@@ -1,7 +1,7 @@
 Cork.Models.Posts =
   create: (attributes)->
     attributes = @processAttributes(attributes)
-    attributes.boardSlug = Session.get('boardSlug')
+    attributes.board = Session.get('board')?._id
     Posts.insert attributes
 
   delete: (id)->

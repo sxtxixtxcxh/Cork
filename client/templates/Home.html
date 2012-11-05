@@ -4,7 +4,12 @@
       {{> posts }}
     </div>
     {{> new_post }}
+    {{> settings }}
   </div>
+  {{> header }}
+</template>
+
+<template name="header">
   <header>
     <div class="span2" style="float: right">
       {{loginButtons align="right"}}
@@ -14,7 +19,6 @@
     <nav class="board-menu">
       {{#if anyBoards}}
         <ul>
-          <li><a href="#x:0;y:0" id="viewport-permalink"><i class="icon-link"/></a></li>
           {{#if personalBoard}}
             <li><a href="/users/{{personalBoard}}"><i class="icon-home"/>Home</a></li>
           {{/if}}
@@ -25,9 +29,29 @@
       {{/if}}
     </nav>
     {{#if loggedIn}}
-      <a href="#" class="add-post"><i class="icon-plus-sign"/></a>
+      <div class="mini-tools">
+        <a href="#x:0;y:0" id="viewport-permalink"><i class="icon-link"/></a>
+        <a href="#" class="add-post"><i class="icon-plus-sign"/></a>
+        <a href="#settings" id="settings-link"><i class="icon-cogs"/></a>
+      </div>
     {{/if}}
   </header>
+</template>
+
+<template name="settings">
+  {{#if showSettingsOverlay}}
+    <div class="overlay transition" id="settings-overlay">
+      <div class="settings dialog">
+        <form id="settings">
+          <fieldset>
+            <legend>Settings</legend>
+            <label>Username</label>
+            <input name="username" value="{{username}}">
+          </fieldset>
+          <button type="submit">Update</button>
+      </div>
+    </div>
+  {{/if}}
 </template>
 
 <template name="new_post">

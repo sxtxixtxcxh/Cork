@@ -1,10 +1,3 @@
-Meteor.autosubscribe ->
-  Meteor.subscribe "posts", Session.get('boardSlug')
-  Meteor.subscribe "boards", Meteor.userId() if Meteor.user()
-
-Cork.posts = Posts.find()
-Cork.boards = Boards.find()
-
 Template.posts.helpers
   posts: ->
     Cork.posts
