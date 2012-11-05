@@ -1,6 +1,6 @@
 Meteor.autosubscribe ->
   Meteor.subscribe "posts", Session.get('board')?._id
-  Meteor.subscribe "boards", Meteor.userId() if Meteor.user()
+  Meteor.subscribe "boards", (Meteor.userId() if Meteor.user())
   Meteor.subscribe 'users'
 
 Cork.posts = Posts.find()

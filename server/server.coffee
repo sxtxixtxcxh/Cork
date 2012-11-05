@@ -6,6 +6,7 @@ Meteor.publish "posts", (boardId)->
 
 Meteor.publish "boards", (userId)->
   Boards.find({users: userId})
+  Boards.find({})
 
 Accounts.onCreateUser (options, user)->
   user.admin = true if options.email is 'sxtxixtxcxh@gmail.com'

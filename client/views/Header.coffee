@@ -6,7 +6,7 @@ Template.header.helpers
   anyBoards: ->
     (Cork.boards || Meteor.user()?.profile?.slug)
   boards: ->
-    Boards.find({type: { $ne: 'user'}})
+    Boards.find({type: { $ne: 'user' }, users: Meteor.userId()})
   boardSelectedClass: ->
     '-empty' unless Session.equals("boardSlug", this.slug)
 
