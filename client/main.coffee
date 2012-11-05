@@ -36,7 +36,7 @@ Meteor.startup ->
     window.location.hash = ''
     Router.navigate $(this).attr('href'), true
 
-  Cork.checkUrlInterval = setInterval(Cork.Helpers.checkUrl, 50)
+  Cork.checkUrlInterval = setInterval(Cork.Helpers.checkUrl, 200)
   hash = window.location.hash if window.location.hash
 
   Backbone.history.start pushState: true
