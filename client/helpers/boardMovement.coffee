@@ -1,16 +1,14 @@
 Cork.Helpers.slide = (direction, speed)->
-  $body = $('body')
-  return if $body.hasClass('transition')
-  $center = $('#center')
+  return if $body().hasClass('transition')
   speed ||= 1
   dist = 240 * speed
-  $body.addClass('transition')
-  $center.addClass('transition')
+  $body().addClass('transition')
+  $center().addClass('transition')
   setTimeout(->
-    $body.removeClass('transition')
-    $center.removeClass('transition')
+    $body().removeClass('transition')
+    $center().removeClass('transition')
   , 300)
-  position = Cork.Helpers.bodyBgAndCenterStart($body, $center)
+  position = Cork.Helpers.bodyBgAndCenterStart()
 
   switch direction
     when 'left'
@@ -27,33 +25,28 @@ Cork.Helpers.slide = (direction, speed)->
       position.bg.y -= dist
 
   Cork.Helpers.pan
-    $el: $center
     x: position.center.x
     y: position.center.y
   ,
-    $el: $body
     x: position.bg.x
     y: position.bg.y
 
 Cork.Helpers.pan = (center, bg)->
-  center.$el.css
+  $center().css
     left: center.x
     top: center.y
-  bg.$el.css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
+  $body().css 'backgroundPosition', "#{bg.x}px #{bg.y}px"
   clearTimeout Cork.setPermalinkTimeout
   Cork.setPermalinkTimeout = setTimeout(Cork.Helpers.setPermalink, 300)
   true
 
 Cork.Helpers.setPermalink = ->
-  $viewport = $('#viewport')
-  $center = $('#center')
-  relativeX = $viewport.width()/2 - $center.position().left
-  relativeY = - ($viewport.height()/2 - $center.position().top)
+  relativeX = $viewport().width()/2 - $center().position().left
+  relativeY = - ($viewport().height()/2 - $center().position().top)
   $('#viewport-permalink').attr 'href', "#x:#{relativeX};y:#{relativeY}"
 
 Cork.Helpers.zoom = (x)->
   Session.set('scale', x)
-  $center = $('#center')
-  $center.transition {
+  $center().transition {
     scale: "#{x}"
   }, 300, 'in'

@@ -5,8 +5,13 @@ Router = new MainRouter()
 Meteor.startup ->
   if Modernizr.hasEvent('mousewheel')
     $('html').addClass('mousewheel')
-  window.$body = $('body')
-  window.$center = $('#center')
+
+  window.$body = ->
+    Cork.Helpers.selectorCache('$body', 'body')
+  window.$center = ->
+    Cork.Helpers.selectorCache('$center', '#center')
+  window.$viewport = ->
+    Cork.Helpers.selectorCache('$viewport', '#viewport')
 
   Mousetrap.bind ['shift+left', 'command+left', 'ctrl+left', 'h'], ->
     Cork.Helpers.slide('left', 3)

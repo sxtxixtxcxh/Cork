@@ -1,9 +1,11 @@
-Cork.Helpers.bodyBgAndCenterStart = ($body, $center)->
-  bgPos = $body.css('backgroundPosition').split(' ')
+Cork.Helpers.bodyBgAndCenterStart = ()->
+  bgPos = $body().css('backgroundPosition').split(' ')
   bgX = parseInt bgPos[0], 10
   bgY = parseInt bgPos[1], 10
-  centerStartX = $center.position().left
-  centerStartY = $center.position().top
+  centerPosition = $center().position()
+  centerStartX = centerPosition.left
+  centerStartY = centerPosition.top
+
   return {
     center:
       x: centerStartX

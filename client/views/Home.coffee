@@ -34,8 +34,7 @@ Template.new_post.events
     e.preventDefault()
     $newPost = $('#new-post')
     return unless $newPost.val()
-    $body = $('body')
-    $bgPos = $body.css('backgroundPosition').split(' ')
+    $bgPos = $body().css('backgroundPosition').split(' ')
     $bgX = parseInt $bgPos[0], 10
     $bgY = parseInt $bgPos[1], 10
     scale = 1/(Session.get('scale') or 1)
@@ -77,8 +76,6 @@ Template.new_post.rendered = ->
 
 Template.home.rendered = ->
   return if this.moveBound
-  $center = $('#center')
-  $body = $('body')
   startPositions = undefined
 
   Mousetrap.bind 'a', ->
@@ -91,18 +88,14 @@ Template.home.rendered = ->
     'movestart': (e)->
       return if e.finger > 1
       window.location.hash = ''
-      $center = $('#center')
-      $body = $('body')
-      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+      startPositions = Cork.Helpers.bodyBgAndCenterStart()
 
     'move': (e)->
       return if e.finger > 1
       Cork.Helpers.pan
-        $el: $center,
         x: startPositions.center.x + e.distX,
         y: startPositions.center.y + e.distY
       ,
-        $el: $body,
         x: startPositions.bg.x+e.distX,
         y: startPositions.bg.y+e.distY
 
@@ -116,12 +109,12 @@ Template.home.rendered = ->
     #   if zoomScale
     #     Cork.Helpers.zoom(zoomScale)
     # , 300, true)
+    #
+    # Firefox < 17 wheel event
     # 'wheel': (e)->
     #   e.preventDefault()
     #   e = e.originalEvent
-    #   $center = $('#center')
-    #   $body = $('body')
-    #   startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+    #   startPositions = Cork.Helpers.bodyBgAndCenterStart()
     #   console.log e
     #   x = y = 0
     #   switch e.axis
@@ -131,11 +124,9 @@ Template.home.rendered = ->
     #       y = - e.detail
     #   speed = 1
     #   Cork.Helpers.pan
-    #     $el: $center
     #     x: startPositions.center.x + x*speed
     #     y: startPositions.center.y + y*speed
     #   ,
-    #     $el: $body
     #     x: startPositions.bg.x + x*speed
     #     y: startPositions.bg.y + y*speed
 
@@ -144,18 +135,14 @@ Template.home.rendered = ->
       e.preventDefault()
       e = e.originalEvent || e
       window.location.hash = ''
-      $center = $('#center')
-      $body = $('body')
-      startPositions = Cork.Helpers.bodyBgAndCenterStart $body, $center
+      startPositions = Cork.Helpers.bodyBgAndCenterStart()
       x = e.wheelDeltaX || - e.deltaX || 0
       y = e.wheelDeltaY || - e.deltaY || 0
       speed = 0.4
       Cork.Helpers.pan
-        $el: $center
         x: Math.floor(startPositions.center.x + x*speed)
         y: Math.floor(startPositions.center.y + y*speed)
       ,
-        $el: $body
         x: Math.floor(startPositions.bg.x + x*speed)
         y: Math.floor(startPositions.bg.y + y*speed)
 
