@@ -4,7 +4,10 @@ Template.home.rendered = ->
 
   Mousetrap.bind 'a', ->
     if Meteor.userLoaded()
-      Session.set('showNewPostOverlay', true)
+      Session.set('showNewPost', true)
+
+  Mousetrap.bind '1', ->
+    return Cork.Helpers.pan {x:'50%', y:'50%'}, {x:0, y:0}, true
 
   $document = $(document)
 
@@ -46,11 +49,29 @@ Template.settings.helpers
   username: ->
     Meteor.user()?.username
 
+  showSettingsOverlay: ->
+    Session.get('showSettings')
+
 Template.settings.rendered = ->
-  if Session.get('showSettingsOverlay')
+  if Session.get('showSettings')
     $('#settings-overlay').css
       opacity: 1
 
 Template.settings.events
   'submit #settings': (e)->
     e.preventDefault()
+    $username = $('#username')
+    username = $username.val()
+    if Meteor.user().username isnt username
+      Meteor.users.update Meteor.userId(),
+        $set:
+          username: username
+        , (error)->
+          unless error
+            Meteor.call 'createUserBoard', Meteor.user()
+
+Template.viewport.rendered = ->
+  Cork.Helpers.selectorCache('$viewport', '#viewport', true)
+
+Template.center.rendered = ->
+  Cork.Helpers.selectorCache('$center', '#center', true)

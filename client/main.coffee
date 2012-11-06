@@ -1,10 +1,10 @@
 Meteor.autosubscribe ->
-  Meteor.subscribe "posts", Session.get('board')?._id
+  Meteor.subscribe "posts", Boards.findOne({slug: Session.get('boardSlug')})?._id
   Meteor.subscribe "boards", (Meteor.userId() if Meteor.user())
   Meteor.subscribe 'users'
 
-Cork.posts = Posts.find()
-Cork.boards = Boards.find()
+# Cork.posts = Posts.find()
+# Cork.boards = Boards.find()
 
 Router = new MainRouter()
 

@@ -1,13 +1,13 @@
 Template.new_post.helpers
   showNewPostOverlay: ->
-    Session.get('showNewPostOverlay')
+    Session.get('showNewPost')
 
 Template.new_post.events
   'click .delete-link': ->
     $('#new-post-overlay').css
       opacity: 0
     setTimeout( ->
-      Session.set('showNewPostOverlay', false)
+      Session.set('showNewPost', false)
     , 300)
 
   'click #create-new-post': (e)->
@@ -30,7 +30,7 @@ Template.new_post.events
     $('#new-post-overlay').css
       opacity: 0
     setTimeout( ->
-      Session.set('showNewPostOverlay', false)
+      Session.set('showNewPost', false)
     , 300)
 
   'mousedown .new-post': (e)->
@@ -44,10 +44,10 @@ Template.new_post.events
     $newPost.attr('class', 'new-post post')
     type = Cork.Helpers.detectMedia($(e.currentTarget).val()).type
     $newPost.addClass type
-    Session.set('showNewPostOverlay', false) if e.keyCode is 27
+    Session.set('showNewPost', false) if e.keyCode is 27
 
 Template.new_post.rendered = ->
-  if Session.get('showNewPostOverlay')
+  if Session.get('showNewPost')
     $('#new-post-overlay').css
       opacity: 1
 

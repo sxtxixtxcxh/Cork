@@ -1,6 +1,6 @@
 Template.posts.helpers
   posts: ->
-    Cork.posts
+    Posts.find()
   loggedIn: ->
     Meteor.user
 

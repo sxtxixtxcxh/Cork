@@ -2,9 +2,10 @@ Template.header.helpers
   loggedIn: ->
     Meteor.user
   personalBoard: ->
-    Meteor.user().username if Meteor.userLoaded()
+    personalBoard = Boards.findOne slug: "user-#{Meteor.userId()}"
+    Meteor.user()?.username if personalBoard
   anyBoards: ->
-    (Cork.boards || Meteor.user()?.profile?.slug)
+    Boards.find(users: Meteor.userId()).count() > 0
   boards: ->
     Boards.find({type: { $ne: 'user' }, users: Meteor.userId()})
   boardSelectedClass: ->
@@ -17,9 +18,10 @@ Template.settings.helpers
 Template.header.events
   'click .add-post': (e)->
     e.preventDefault()
-    showNewPost = !Session.get('showNewPostOverlay')
-    Session.set('showNewPostOverlay', showNewPost)
+    showNewPost = !Session.get('showNewPost')
+    Session.set('showNewPost', showNewPost)
+
   'click #settings-link': (e)->
     e.preventDefault()
-    showSettings = !Session.get('showSettingsOverlay')
-    Session.set('showSettingsOverlay', showSettings)
+    showSettings = !Session.get('showSettings')
+    Session.set('showSettings', showSettings)

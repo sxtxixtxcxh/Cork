@@ -2,12 +2,6 @@ Cork.Helpers.slide = (direction, speed)->
   return if $body().hasClass('transition')
   speed ||= 1
   dist = 240 * speed
-  $body().addClass('transition')
-  $center().addClass('transition')
-  setTimeout(->
-    $body().removeClass('transition')
-    $center().removeClass('transition')
-  , 300)
   position = Cork.Helpers.bodyBgAndCenterStart()
 
   switch direction
@@ -30,8 +24,19 @@ Cork.Helpers.slide = (direction, speed)->
   ,
     x: position.bg.x
     y: position.bg.y
+  , true
 
-Cork.Helpers.pan = (center, bg)->
+
+Cork.Helpers.transitionBoard = ()->
+  $body().addClass('transition')
+  $center().addClass('transition')
+  setTimeout(->
+    $body().removeClass('transition')
+    $center().removeClass('transition')
+  , 300)
+
+Cork.Helpers.pan = (center, bg, slide)->
+  Cork.Helpers.transitionBoard() if slide
   $center().css
     left: center.x
     top: center.y

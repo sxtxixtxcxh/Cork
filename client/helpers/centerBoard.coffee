@@ -14,14 +14,8 @@ Cork.Helpers.centerBoard = ->
     bg=
       x: position.bg.x
       y: position.bg.y
-    $body().addClass('transition')
-    $center().addClass('transition')
-    setTimeout(->
-      $body().removeClass('transition')
-      $center().removeClass('transition')
-    , 300)
+    return Cork.Helpers.pan center, bg, true
 
-    return Cork.Helpers.pan center, bg
   return Cork.Helpers.pan {x:'50%', y:'50%'}, {x:0, y:0}
 
 Cork.Helpers.readCoords = (coordHash)->

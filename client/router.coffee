@@ -22,8 +22,6 @@ class MainRouter extends Backbone.Router
 
   showBoard: (boardSlug)->
     Session.set('boardSlug', boardSlug)
-    board = Boards.findOne slug: boardSlug || ''
-    Session.set('board', board)
     Cork.centerInterval = setInterval(->
       return unless $center().length > 0
       setTimeout(->

@@ -30,11 +30,14 @@ Cork.Models.User.validateUsername = (username)->
 
 Cork.Models.Board ||= {}
 Cork.Models.Board.createUserBoard = (user)->
-  Boards.insert
-    users: [user._id]
-    type: 'user'
-    owner: user._id
-    slug: "user-#{user._id}"
+  if Boards.findOne(slug: "user-#{user._id}")
+    Meteor.Error(403, "Board already exists.")
+  else
+    Boards.insert
+      users: [user._id]
+      type: 'user'
+      owner: user._id
+      slug: "user-#{user._id}"
 
 Meteor.users.allow
   update: (userId, docs, fields, modifier)->

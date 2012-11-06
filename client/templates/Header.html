@@ -1,0 +1,32 @@
+<template name="header">
+  <header>
+    <div class="span2" style="float: right">
+      {{loginButtons align="right"}}
+    </div>
+    <h1><a href="/">Cork</a></h1>
+    <h2>A <span class="prototype">Prototype</span> App</h2>
+    <nav class="board-menu">
+      {{#if anyBoards}}
+        <ul>
+          {{#if personalBoard}}
+            <li><a href="/users/{{personalBoard}}">
+              <i class="icon-home" title="Your Board"/>Home</a>
+            </li>
+          {{/if}}
+          {{#each boards}}
+            <li>
+              <a href="/boards/{{slug}}"><i class="icon-check{{boardSelectedClass}}"/>{{name}}</a>
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </nav>
+    {{#if loggedIn}}
+      <div class="mini-tools">
+        <a href="#x:0;y:0" id="viewport-permalink" title="A link to your current center."><i class="icon-link"/></a>
+        <a href="#" class="add-post" title="Add a new post"><i class="icon-plus-sign"/></a>
+        <a href="#settings" id="settings-link" title="Settings"><i class="icon-cogs"/></a>
+      </div>
+    {{/if}}
+  </header>
+</template>
