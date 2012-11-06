@@ -1,4 +1,4 @@
-Template.home.rendered = ->
+Template.board.rendered = ->
   return if this.moveBound
   startPositions = undefined
 
@@ -66,9 +66,9 @@ Template.settings.events
       Meteor.users.update Meteor.userId(),
         $set:
           username: username
-        , (error)->
-          unless error
-            Meteor.call 'createUserBoard', Meteor.user()
+        ,
+        (error)->
+          Meteor.call('createUserBoard', Meteor.user()) unless error
 
 Template.viewport.rendered = ->
   Cork.Helpers.selectorCache('$viewport', '#viewport', true)
