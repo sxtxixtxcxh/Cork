@@ -59,6 +59,15 @@ Template.post_detail.events
     e.stopPropagation() unless Modernizr.touch
   'mouseleave .selected': (e)->
     $(e.target).removeClass('selected')
+  'mouseenter .post-body': (e)->
+    $postBody = $(e.target)
+    Cork.scrollPostBodyTimeout = setTimeout(->
+      $postBody.on 'mousewheel wheel', (e)->
+        e.stopPropagation()
+    , 300)
+  'mouseleave .post-body': (e)->
+    clearTimeout Cork.scrollPostBodyTimeout
+    $(e.target).off 'mousewheel'
 
 Template.post_detail.helpers
   isObserver: ->
