@@ -32,7 +32,11 @@ Template.new_post.events
     setTimeout( ->
       Session.set('showNewPost', false)
     , 300)
-
+  'mouseenter textarea': (e)->
+    $(e.target).on 'mousewheel wheel', (e)->
+      e.stopPropagation()
+  'mouseleave textarea': (e)->
+    $(e.target).off 'mousewheel wheel'
   'mousedown .new-post': (e)->
     e.stopPropagation()
 

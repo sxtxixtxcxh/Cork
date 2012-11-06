@@ -61,6 +61,7 @@ Template.post_detail.events
     $(e.target).removeClass('selected')
   'mouseenter .post-body': (e)->
     $postBody = $(e.target)
+    return unless e.target.scrollHeight > $postBody.height()
     Cork.scrollPostBodyTimeout = setTimeout(->
       $postBody.on 'mousewheel wheel', (e)->
         e.stopPropagation()
