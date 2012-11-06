@@ -11,10 +11,6 @@ Template.header.helpers
   boardSelectedClass: ->
     '-empty' unless Session.equals("boardSlug", this.slug)
 
-Template.settings.helpers
-  showSettingsOverlay: ->
-    Session.get('showSettingsOverlay')
-
 Template.header.events
   'click .add-post': (e)->
     e.preventDefault()

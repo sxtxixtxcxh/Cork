@@ -48,7 +48,6 @@ Template.board.rendered = ->
 Template.settings.helpers
   username: ->
     Meteor.user()?.username
-
   showSettingsOverlay: ->
     Session.get('showSettings')
 
