@@ -14,9 +14,9 @@ Cork.Helpers.centerBoard = ->
     bg=
       x: position.bg.x
       y: position.bg.y
-    return Cork.Helpers.pan center, bg, true
+    return Cork.Helpers.setBoardPosition center, bg, true
 
-  return Cork.Helpers.pan {x:'50%', y:'50%'}, {x:0, y:0}
+  return Cork.Helpers.setBoardPosition {x:'50%', y:'50%'}, {x:0, y:0}
 
 Cork.Helpers.readCoords = (coordHash)->
   coords = coordHash?.replace(/#/,'')

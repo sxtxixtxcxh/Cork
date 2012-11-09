@@ -41,7 +41,7 @@ Meteor.startup ->
     if Session.equals("showNewPost", true) then Session.set('showNewPost', false)
 
   Mousetrap.bind '1', ->
-    return Cork.Helpers.pan {x:'50%', y:'50%'}, {x:0, y:0}, true
+    return Cork.Helpers.setBoardPosition {x:'50%', y:'50%'}, {x:0, y:0}, true
 
   $document = $(document)
   startPositions = {}
@@ -53,27 +53,21 @@ Meteor.startup ->
 
     'move': (e)->
       return if e.finger > 1
-      Cork.Helpers.pan
-        x: startPositions.center.x + e.distX,
-        y: startPositions.center.y + e.distY
-      ,
-        x: startPositions.bg.x+e.distX,
-        y: startPositions.bg.y+e.distY
+      Cork.Helpers.moveBy
+        x: e.distX,
+        y: e.distY
+        startPositions: startPositions
 
     'mousewheel wheel': (e)->
       e.preventDefault()
       e = e.originalEvent || e
       window.location.hash = ''
-      startPositions = Cork.Helpers.bodyBgAndCenterStart()
       x = e.wheelDeltaX || - e.deltaX || 0
       y = e.wheelDeltaY || - e.deltaY || 0
       speed = 0.4
-      Cork.Helpers.pan
-        x: Math.floor(startPositions.center.x + x*speed)
-        y: Math.floor(startPositions.center.y + y*speed)
-      ,
-        x: Math.floor(startPositions.bg.x + x*speed)
-        y: Math.floor(startPositions.bg.y + y*speed)
+      Cork.Helpers.moveBy
+        x: x*speed
+        y: y*speed
 
   , '#viewport'
 
