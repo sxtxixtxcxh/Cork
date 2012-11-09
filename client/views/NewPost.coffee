@@ -42,13 +42,12 @@ Template.new_post.events
 
   'mousedown textarea': (e)->
     e.stopPropagation()
-
   'keyup textarea': (e)->
-    $newPost = $('.new-post')
+    return Session.set('showNewPost', false) if e.keyCode is 27
+    $newPost = $(e.target).parents('.post')
     $newPost.attr('class', 'new-post post')
     type = Cork.Helpers.detectMedia($(e.currentTarget).val()).type
     $newPost.addClass type
-    Session.set('showNewPost', false) if e.keyCode is 27
 
 Template.new_post.rendered = ->
   if Session.get('showNewPost')
