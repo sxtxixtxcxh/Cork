@@ -33,7 +33,7 @@ Template.post_detail.rendered =->
           position:
             x: Math.floor(posX*scale)
             y: Math.floor(posY*scale)
-          updatedAt: Cork.Models.Posts.timestamp()
+          updatedAt: Cork.Models.Post.timestamp()
     'move': (e)->
       e.stopPropagation()
       scale = 1/(Session.get('scale') or 1)
@@ -52,7 +52,7 @@ Template.post_detail.events
     window.location.hash = url.hash
   'click .delete-link': (e)->
     e.preventDefault()
-    Cork.Models.Posts.delete(this._id)
+    Cork.Models.Post.delete(this._id)
   'mousedown .post-youtube': (e)->
     e.stopPropagation() unless Modernizr.touch
   'mousedown .selected .post-body': (e)->

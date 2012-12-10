@@ -20,7 +20,7 @@ Template.new_post.events
     scale = 1/(Session.get('scale') or 1)
     x = - $bgX - (120/scale)
     y = - $bgY
-    Cork.Models.Posts.create
+    Cork.Models.Post.create
       body: $newPost.val()
       userId: Meteor.userId()
       position:

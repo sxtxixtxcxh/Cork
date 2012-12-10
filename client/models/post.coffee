@@ -1,4 +1,4 @@
-Cork.Models.Posts =
+Cork.Models.Post =
   create: (attributes)->
     attributes = @processAttributes(attributes)
     attributes.board = Boards.findOne({slug: Session.get('boardSlug')})?._id
