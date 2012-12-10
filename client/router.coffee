@@ -9,7 +9,7 @@ class MainRouter extends Backbone.Router
     @showBoard()
 
   myBoard: ()->
-    if Meteor.user() and Meteor.userLoaded()
+    if Meteor.user()
       @showUsersBoard(Meteor.user().username)
     else
       # figure out what to do until the user is loaded

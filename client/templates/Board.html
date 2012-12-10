@@ -18,10 +18,11 @@
 </template>
 
 <template name="settings">
-  {{#if currentUserLoaded}}
+  {{#if currentUser}}
     {{#if showSettingsOverlay}}
       <div class="overlay transition" id="settings-overlay">
         <div class="settings dialog">
+          <a class="delete-link icon-remove-sign"></a>
           <form id="settings">
             <fieldset>
               <legend>Settings</legend>

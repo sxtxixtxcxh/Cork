@@ -6,7 +6,6 @@
 insecure
 preserve-inputs
 backbone
-sass
 coffeescript
 stylus
 accounts-password

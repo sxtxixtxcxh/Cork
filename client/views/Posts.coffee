@@ -11,7 +11,7 @@ Template.post_detail.rendered =->
   id = this.data._id
   $post.css('opacity', 1) unless Meteor.user()
 
-  return unless Meteor.user() and Meteor.userLoaded()
+  return unless Meteor.user()
   $post.css('opacity', 1)
   return if this.moveBound
   posX = this.data.position.x

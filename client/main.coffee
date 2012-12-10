@@ -34,7 +34,7 @@ Meteor.startup ->
     Cork.Helpers.slide('down')
 
   Mousetrap.bind 'a', ->
-    if Meteor.userLoaded()
+    if Meteor.user()
       Session.set('showNewPost', true)
 
   Mousetrap.bind 'esc', (e)->
@@ -71,7 +71,7 @@ Meteor.startup ->
 
   , '#viewport'
 
-  $document.on 'click', 'header a[href^=/]', (e)->
+  $document.on 'click', "header a[href^='/']", (e)->
     e.preventDefault()
     window.location.hash = ''
     Router.navigate $(this).attr('href'), true

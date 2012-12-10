@@ -10,6 +10,15 @@ Template.settings.rendered = ->
       opacity: 1
 
 Template.settings.events
+  'click .delete-link': ->
+    $('#settings-overlay').css
+      opacity: 0
+    setTimeout( ->
+      Session.set('showSettings', false)
+    , 300)
+  'keyup input': (e)->
+    return Session.set('showSettings', false) if e.keyCode is 27
+
   'submit #settings': (e)->
     e.preventDefault()
     $username = $('#username')
